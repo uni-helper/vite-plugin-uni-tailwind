@@ -43,7 +43,7 @@
   ],
   "scripts": {
     "build": "tsup",
-    "check:types": "tsx --noEmit",
+    "check:types": "tsc --noEmit",
     "dev": "tsup --watch src",
     "lint": "run-p lint:eslint lint:markdownlint check:types test:coverage",
     "lint:eslint": "eslint . --fix --ext=.js,.cjs,.mjs,.jsx,.ts,.cts,.mts,.tsx,.vue --ignore-path=.gitignore --cache",
