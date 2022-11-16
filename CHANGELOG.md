@@ -1,5 +1,9 @@
 # 改动日志
 
+## 0.8.1 (2022-11-04)
+
+- fix: 修复构建
+
 ## 0.8.0 (2022-11-04)
 
 - feat!: 迁移到 `@uni-helper/vite-plugin-uni-tailwind`
