@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 import { defineConfig } from 'tsup';
 
 export default defineConfig([
@@ -13,6 +12,7 @@ export default defineConfig([
     target: 'node14.16',
     define: {
       'process.env.UNI_PLATFORM': 'process.env.UNI_PLATFORM',
+      'import.meta.env.UNI_PLATFORM': 'import.meta.env.UNI_PLATFORM',
     },
     footer: ({ format }) => {
       if (format === 'cjs') {
@@ -23,4 +23,3 @@ export default defineConfig([
     },
   },
 ]);
-/* eslint-enable no-useless-escape */
