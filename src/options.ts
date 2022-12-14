@@ -8,29 +8,17 @@ import {
 } from './constants';
 
 export interface UniAppTailwindPluginOptions {
-  /**
-   * @desc 需要应用该插件的环境
-   */
+  /** 需要应用该插件的环境 */
   apply?: string[];
-  /**
-   * @desc 应用该插件的环境判断方法
-   */
+  /** 应用该插件的环境判断方法 */
   getShouldApply?: (targets: string[], current: string) => boolean;
-  /**
-   * @desc space between 元素映射
-   */
+  /** Space between 元素映射 */
   spaceBetweenElements?: string[];
-  /**
-   * @desc divide width 元素映射
-   */
+  /** Divide width 元素映射 */
   divideWidthElements?: string[];
-  /**
-   * @desc uni-app 中元素映射
-   */
+  /** Uni-app 中元素映射 */
   elementMap?: [string, string[]][];
-  /**
-   * @desc 特殊符号映射
-   */
+  /** 特殊符号映射 */
   characterMap?: [string, string][];
 }
 
