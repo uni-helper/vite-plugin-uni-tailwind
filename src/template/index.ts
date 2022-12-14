@@ -6,7 +6,7 @@ export { babelTransformClass };
 
 export const isTemplateFile = (fileName: string) => /.+\.(?:wx|ax|jx|ks|tt|q)ml$/.test(fileName);
 
-export const classNames = ['class', 'classname', 'class-name'];
+export const classNames = ['class', 'Class', 'classname', 'className', 'class-name'];
 
 export const transformTemplate = (source: string, options?: Options) => {
   const parsed = wxml.parse(source);
