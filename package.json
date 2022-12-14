@@ -27,16 +27,17 @@
     "email": "wurui-dev@foxmail.com",
     "url": "https://modyqyw.github.io"
   },
+  "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
       "types": "./dist/index.d.ts"
     },
     "./*": "./dist/*"
   },
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
@@ -54,47 +55,54 @@
     "prepare": "is-ci || husky install"
   },
   "dependencies": {
-    "@babel/core": "^7.20.2",
-    "@vivaxy/wxml": "^2.1.0",
-    "postcss": "^8.4.19"
+    "@babel/core": "^7.20.5",
+    "@vivaxy/wxml": "^2.1.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
-    "@commitlint/cli": "^17.2.0",
-    "@commitlint/config-conventional": "^17.2.0",
-    "@commitlint/prompt": "^17.2.0",
-    "@dcloudio/types": "^3.0.19",
-    "@modyqyw/fabric": "^5.11.0",
+    "@commitlint/cli": "^17.3.0",
+    "@commitlint/config-conventional": "^17.3.0",
+    "@commitlint/prompt": "^17.3.0",
+    "@dcloudio/types": "^3.2.3",
+    "@modyqyw/fabric": "^5.14.0",
     "@tsconfig/node18": "^1.0.1",
     "@types/babel__core": "^7.1.20",
-    "@types/node": "^18.11.9",
-    "@typescript-eslint/eslint-plugin": "^5.43.0",
-    "@typescript-eslint/parser": "^5.43.0",
-    "@vitest/coverage-c8": "^0.25.2",
-    "@vitest/ui": "^0.25.2",
+    "@types/node": "^18.11.15",
+    "@typescript-eslint/eslint-plugin": "^5.46.1",
+    "@typescript-eslint/parser": "^5.46.1",
+    "@vitest/coverage-c8": "^0.25.8",
+    "@vitest/ui": "^0.25.8",
     "c8": "^7.12.0",
-    "commitizen": "^4.2.5",
-    "eslint": "^8.27.0",
+    "commitizen": "^4.2.6",
+    "eslint": "^8.29.0",
     "husky": "^8.0.2",
     "is-ci": "^3.0.1",
-    "lint-staged": "^13.0.3",
+    "lint-staged": "^13.1.0",
     "markdownlint-cli": "^0.32.2",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.7.1",
-    "release-it": "^15.5.0",
+    "postcss": "^8.4.20",
+    "prettier": "^2.8.1",
+    "release-it": "^15.5.1",
     "tailwindcss": "^3.2.4",
     "ts-node": "^10.9.1",
     "tsup": "^6.5.0",
     "tsx": "^3.12.1",
-    "typescript": "^4.9.3",
-    "vitest": "^0.25.2"
+    "typescript": "^4.9.4",
+    "vitest": "^0.25.8"
   },
   "peerDependencies": {
+    "postcss": "^8.0.0",
     "tailwindcss": "^3.0.0",
-    "vite": "^2.0.0 || ^3.0.0"
+    "vite": "^2.0.0 || ^3.0.0 || ^4.0.0"
   },
+  "peerDependenciesMeta": {
+    "postcss": {
+      "optional": true
+    }
+  },
+  "packageManager": "pnpm@7.18.2",
   "engines": {
-    "node": ">=14.16"
+    "node": ">=14.18"
   },
   "publishConfig": {
     "access": "public",
