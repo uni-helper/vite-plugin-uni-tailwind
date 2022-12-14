@@ -4,7 +4,7 @@
 
 [![npm](https://img.shields.io/npm/v/@uni-helper/vite-plugin-uni-tailwind)](https://www.npmjs.com/package/@uni-helper/vite-plugin-uni-tailwind)
 
-支持在 `uni-app` 中使用 `tailwindcss@3` 原有语法开发小程序。
+支持在 `uni-app` 中使用 `tailwindcss@3` 原有语法开发小程序。支持 vite v2，v3 和 v4，要求 `node >= 14.18`。
 
 ## 使用
 
