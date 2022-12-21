@@ -27,6 +27,7 @@ import nested from 'tailwindcss/nesting';
 // @ts-ignore
 import postcssPresetEnv from 'postcss-preset-env';
 import uniTailwind from 'vite-plugin-uni-tailwind';
+import tailwindcssConfig from './tailwind.config.cjs'; // 注意匹配实际文件
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -34,7 +35,9 @@ export default defineConfig({
     postcss: {
       plugins: [
         nested(),
-        tailwindcss(),
+        tailwindcss({
+          config: tailwindcssConfig,
+        }),
         postcssPresetEnv({
           stage: 3,
           features: { 'nesting-rules': false },
@@ -224,14 +227,14 @@ const getShouldApply = (targets: string[], current: string) =>
 如果你悲伤地发现这没法满足你的需求，可能这个插件不适合你，请看看以下几个项目是否满足你的需求。你也可以看看 [tailwind-extensions](https://www.npmjs.com/package/tailwind-extensions)，它扩展了大量默认配置。
 
 - [mini-program-tailwind](https://github.com/dcasia/mini-program-tailwind)
-- [unocss-preset-applet](https://github.com/unocss-applet/unocss-applet)
+- [unocss-applet](https://github.com/unocss-applet/unocss-applet)
 - [unocss-preset-weapp](https://github.com/MellowCo/unocss-preset-weapp)
 
 ### windicss / unocss 支持
 
 `windicss` / `unocss` 是富具创造性的项目，尽管它们都声称支持 `tailwindcss` 所有功能，但它们问世时间都较短，我相信 `tailwindcss` 是目前更为稳妥的选择。
 
-如果 `unocss` 未来成为 `windicss@4` 的底层引擎或者直接替代了 `windicss`（请阅读 [重新构想原子化 CSS](https://antfu.me/posts/reimagine-atomic-css-zh)），我非常乐意再写一个 `unocss-preset-uni-app`（如果有必要的话）。
+如果你没有使用 `windicss` / `unocss` 内的高级功能（如 [Attributify Mode](https://windicss.org/features/attributify.html)、[Tagify Mode](https://github.com/unocss/unocss/tree/main/packages/preset-tagify)），那么这个库应该也能正常工作。
 
 ## 资源
 
@@ -242,7 +245,7 @@ const getShouldApply = (targets: string[], current: string) =>
 该项目从以下项目汲取了灵感并参考了代码。在此对它们的开发者表示由衷的感谢。
 
 - [mini-program-tailwind](https://github.com/dcasia/mini-program-tailwind)
-- [unocss-preset-applet](https://github.com/unocss-applet/unocss-applet)
+- [unocss-applet](https://github.com/unocss-applet/unocss-applet)
 - [unocss-preset-weapp](https://github.com/MellowCo/unocss-preset-weapp)
 
 也感谢以下项目的开发者，如果没有他们，前端开发比现在更加困难。
