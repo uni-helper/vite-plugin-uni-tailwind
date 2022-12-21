@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  page {
+    font-size: var(--font-size, 16px) !important;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  .container {
+    @apply absolute;
+    @apply top-0;
+    @apply left-0;
+    @apply flex;
+    @apply flex-col;
+    @apply w-full;
+    @apply h-full;
+  }
+}
+
+@layer utilities {
+  .expand {
+    @apply relative;
+
+    /* https://tailwindcss.com/docs/using-with-preprocessors#nesting */
+    &::after {
+      @apply absolute;
+      @apply -inset-2;
+      @apply text-transparent;
+      @apply bg-transparent;
+      @apply border-transparent;
+      content: '';
+    }
+  }
+}

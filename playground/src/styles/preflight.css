@@ -1,0 +1,9 @@
+button,
+button::after {
+  all: unset;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
