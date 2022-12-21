@@ -20,14 +20,14 @@ npm install @uni-helper/vite-plugin-uni-tailwind -D
 
 ```typescript
 import { defineConfig } from 'vite';
-import uni from '@dcloudio/vite-plugin-uni';
-import tailwindcss from 'tailwindcss';
 // @ts-ignore
 import nested from 'tailwindcss/nesting';
+import tailwindcss from 'tailwindcss';
+import tailwindcssConfig from './tailwind.config.cjs'; // 注意匹配实际文件
 // @ts-ignore
 import postcssPresetEnv from 'postcss-preset-env';
-import uniTailwind from 'vite-plugin-uni-tailwind';
-import tailwindcssConfig from './tailwind.config.cjs'; // 注意匹配实际文件
+import uni from '@dcloudio/vite-plugin-uni';
+import uniTailwind from '@uni-helper/vite-plugin-uni-tailwind';
 
 // https://vitejs.dev/config/
 export default defineConfig({
