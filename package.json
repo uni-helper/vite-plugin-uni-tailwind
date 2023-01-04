@@ -30,22 +30,23 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
+      "import": "./dist/index.mjs",
       "require": "./dist/index.cjs",
       "types": "./dist/index.d.ts"
     },
     "./*": "./dist/*"
   },
   "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "rollup -c rollup.config.ts --configPlugin esbuild",
     "check:types": "tsc --noEmit",
-    "dev": "tsup --watch src",
+    "commit": "git-cz",
+    "dev": "pnpm run build --watch",
     "lint": "run-p lint:eslint lint:markdownlint check:types test:coverage",
     "lint:eslint": "eslint ./src --fix --ext=.js,.cjs,.mjs,.jsx,.ts,.cts,.mts,.tsx,.vue --ignore-path=.gitignore --cache",
     "lint:markdownlint": "markdownlint . --fix --ignore-path=.gitignore",
@@ -65,17 +66,18 @@
     "@commitlint/prompt": "^17.3.0",
     "@dcloudio/types": "^3.2.7",
     "@modyqyw/fabric": "^5.14.0",
+    "@modyqyw/utils": "^3.0.8",
     "@tsconfig/node18": "^1.0.1",
     "@types/babel__core": "^7.1.20",
     "@types/node": "^18.11.18",
-    "@typescript-eslint/eslint-plugin": "^5.47.1",
-    "@typescript-eslint/parser": "^5.47.1",
-    "@vitest/coverage-c8": "^0.26.2",
-    "@vitest/ui": "^0.26.2",
+    "@typescript-eslint/eslint-plugin": "^5.48.0",
+    "@typescript-eslint/parser": "^5.48.0",
+    "@vitest/coverage-c8": "^0.26.3",
+    "@vitest/ui": "^0.26.3",
     "c8": "^7.12.0",
     "commitizen": "^4.2.6",
-    "eslint": "^8.30.0",
-    "husky": "^8.0.2",
+    "eslint": "^8.31.0",
+    "husky": "^8.0.3",
     "is-ci": "^3.0.1",
     "lint-staged": "^13.1.0",
     "markdownlint-cli": "^0.32.2",
@@ -85,10 +87,9 @@
     "release-it": "^15.6.0",
     "tailwindcss": "^3.2.4",
     "ts-node": "^10.9.1",
-    "tsup": "^6.5.0",
     "tsx": "^3.12.1",
     "typescript": "^4.9.4",
-    "vitest": "^0.26.2"
+    "vitest": "^0.26.3"
   },
   "peerDependencies": {
     "postcss": "^8.0.0",
