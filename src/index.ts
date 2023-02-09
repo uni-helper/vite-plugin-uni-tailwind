@@ -1,7 +1,7 @@
+import type * as Vite from 'vite';
 import { isStyleFile, transformStyle } from './style';
 import { isTemplateFile, transformTemplate } from './template';
 import { Options, UniAppTailwindPluginOptions, defaultOptions } from './options';
-import type * as Vite from 'vite';
 
 export * from './constants';
 export * from './options';
@@ -26,9 +26,10 @@ export default function UniAppTailwindPlugin(options?: UniAppTailwindPluginOptio
   return {
     name: 'vite:uni-tailwind',
     enforce: 'post',
+    // eslint-disable-next-line sonarjs/cognitive-complexity
     generateBundle: (_, bundle) => {
       if (!shouldApply) return;
-      Object.entries(bundle).forEach(([fileName, asset]) => {
+      for (const [fileName, asset] of Object.entries(bundle)) {
         if (asset.type === 'asset') {
           const { source } = asset;
           if (source && typeof source === 'string') {
@@ -39,10 +40,10 @@ export default function UniAppTailwindPlugin(options?: UniAppTailwindPluginOptio
             if (isStyleFile(fileName)) {
               newSource = transformStyle(source, finalOptions);
             }
-            asset.source = newSource || asset.source;
+            asset.source = newSource || source;
           }
         }
-      });
+      }
     },
   };
 }

@@ -7,12 +7,12 @@ export const getShouldApply = (targets: string[], current: string) =>
 
 export const replaceCharacters = (source: string, options: Options, type: 'babel' | 'postcss') => {
   let newSource = source;
-  options.characterMap.forEach(([key, value]) => {
+  for (const [key, value] of options.characterMap) {
     const regExp = new RegExp(
       key.startsWith('\\') ? key : `${type === 'babel' ? '\\' : '\\\\\\'}${key}`,
       'g',
     );
     newSource = newSource.replace(regExp, value);
-  });
+  }
   return newSource;
 };

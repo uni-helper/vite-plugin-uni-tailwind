@@ -5,6 +5,7 @@ import { Options } from '../options';
 
 type Babel = typeof babel;
 
+// eslint-disable-next-line unicorn/better-regex
 const MatchScriptsInsideClassNames = /(\{\{)(.+?)(\}\})/g;
 const ReplaceMarker = '__VITE_PLUGIN_UNI_APP_TAILWIND_REPLACE__';
 
@@ -29,14 +30,14 @@ export function babelReplaceStringLiteral(instance: Babel): PluginItem {
 export const babelTransformClass = (source: string, options: Options) => {
   _options = options;
 
-  const scriptsMatchResults = Array.from(source.matchAll(MatchScriptsInsideClassNames));
+  const scriptsMatchResults = [...source.matchAll(MatchScriptsInsideClassNames)];
   if (scriptsMatchResults.length > 0) {
     source = source.replace(MatchScriptsInsideClassNames, `{{${ReplaceMarker}}}`);
   }
 
   source = replaceCharacters(source, options, 'babel');
 
-  if (scriptsMatchResults.length) {
+  if (scriptsMatchResults.length > 0) {
     for (const script of scriptsMatchResults) {
       const scriptContent = script[0].replace(MatchScriptsInsideClassNames, '$2');
 

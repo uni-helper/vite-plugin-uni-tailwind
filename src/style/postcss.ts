@@ -5,7 +5,7 @@ import { defaultOptions, Options } from '../options';
 const postcssReplaceElements = (selector: string, options: Options) => {
   let newSelector = selector;
 
-  const { spaceBetweenElements, divideWidthElements } = options;
+  const { spaceBetweenElements, divideWidthElements, elementMap } = options;
   newSelector = newSelector
     .replace(
       /^\.(-?space-\w)(-.+?)\s?>.*/,
@@ -33,7 +33,7 @@ const postcssReplaceElements = (selector: string, options: Options) => {
         .join(','),
     );
 
-  options.elementMap.forEach(([key, value]) => {
+  for (const [key, value] of elementMap) {
     newSelector = newSelector.replace(
       new RegExp(
         key === '*'
@@ -44,7 +44,7 @@ const postcssReplaceElements = (selector: string, options: Options) => {
       ),
       value.join(','),
     );
-  });
+  }
 
   return newSelector;
 };
