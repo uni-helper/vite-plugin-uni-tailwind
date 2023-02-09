@@ -33,8 +33,7 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
-    },
-    "./*": "./dist/*"
+    }
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -53,6 +52,7 @@
     "lint:markdownlint": "markdownlint . --fix --ignore-path=.gitignore",
     "test": "vitest run",
     "release": "release-it",
+    "prepublishOnly": "pnpm run build",
     "test:coverage": "vitest run --coverage",
     "prepare": "is-ci || husky install"
   },
