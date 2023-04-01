@@ -67,7 +67,7 @@
     "@commitlint/prompt": "^17.4.3",
     "@dcloudio/types": "^3.2.11",
     "@modyqyw/fabric": "^7.0.3",
-    "@modyqyw/utils": "^4.1.0",
+    "@modyqyw/utils": "^5.0.0",
     "@tsconfig/node18": "^1.0.1",
     "@types/babel__core": "^7.20.0",
     "@types/node": "^18.13.0",
