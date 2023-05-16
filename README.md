@@ -90,6 +90,7 @@ const getShouldApply = (targets: string[], current: string) =>
   [']', '-'],
   ['(', '-'],
   [')', '-'],
+  ['$', '-v-'], // css variable
   ['#', '-h-'], // hash
   ['!', '-i-'], // important
   ['/', '-s-'], // slash
