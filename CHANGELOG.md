@@ -1,8 +1,12 @@
 # 改动日志
 
-## Unreleased
+## 0.10.0 (2023-05-16)
 
 - build: 切换到 `unbuild`
+- feat: 增加 `shouldTransformTemplateAttribute` 选项，允许自定义更多类名支持
+- feat: 增加默认类名支持
+- feat: 增加 `$` 字符支持
+- feat!: 移除 `apply` 和 `getShouldApply` 选项，请使用 `shouldApply` 代替
 
 ## 0.9.1 (2023-01-04)
 
