@@ -53,6 +53,8 @@ export default defineConfig({
 });
 ```
 
+完整示例请查看 [playground](https://github.com/uni-helper/vite-plugin-uni-tailwind/tree/main/playground)。
+
 ## 配置项 `Options`
 
 ### `shouldApply`
