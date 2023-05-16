@@ -1,14 +1,13 @@
 // 默认需要应用该插件的环境
 export const Apply = ['MP', 'QUICKAPP'];
 
-// 默认替换 * 选择器的环境判断方法
-
 // 默认 uni-app 中特殊符号映射，用于替换特殊符号
 export const CharacterMap: [string, string][] = [
   ['[', '-'],
   [']', '-'],
   ['(', '-'],
   [')', '-'],
+  ['$', '-v-'], // css variable
   ['#', '-h-'], // hash
   ['!', '-i-'], // important
   ['/', '-s-'], // slash
