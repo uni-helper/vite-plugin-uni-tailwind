@@ -1,13 +1,12 @@
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 import uni from '@dcloudio/vite-plugin-uni';
 import tailwindcss from 'tailwindcss';
 // @ts-ignore
 import nested from 'tailwindcss/nesting';
-// @ts-ignore
 import postcssPresetEnv from 'postcss-preset-env';
 import uniTailwind from '@uni-helper/vite-plugin-uni-tailwind';
-import tailwindcssConfig from './tailwind.config.cjs'; // 注意匹配实际文件
+import tailwindcssConfig from './tailwind.config.ts'; // 注意匹配实际文件
 
 // https://vitejs.dev/config/
 export default defineConfig({
