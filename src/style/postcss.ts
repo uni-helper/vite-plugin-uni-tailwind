@@ -1,8 +1,8 @@
 import { Plugin, Rule } from 'postcss';
 import { replaceCharacters } from '../utils';
-import { defaultOptions, Options } from '../options';
+import { defaultOptions } from '../options';
 
-const postcssReplaceElements = (selector: string, options: Options) => {
+const postcssReplaceElements = (selector: string, options = defaultOptions) => {
   let newSelector = selector;
 
   const { spaceBetweenElements, divideWidthElements, elementMap } = options;
@@ -49,7 +49,7 @@ const postcssReplaceElements = (selector: string, options: Options) => {
   return newSelector;
 };
 
-export function postcssTransformSelector(options?: Options): Plugin {
+export function postcssTransformSelector(options = defaultOptions): Plugin {
   return {
     postcssPlugin: 'uni-helper-vite-plugin-uni-tailwind-postcss-transform-selector',
     Rule(node: Rule & { processedByPostcssTransformSelector?: boolean }) {
@@ -59,9 +59,9 @@ export function postcssTransformSelector(options?: Options): Plugin {
 
       let newSelector = node.selector;
 
-      newSelector = replaceCharacters(newSelector, options ?? defaultOptions, 'postcss');
+      newSelector = replaceCharacters(newSelector, 'postcss', options);
 
-      newSelector = postcssReplaceElements(newSelector, options ?? defaultOptions);
+      newSelector = postcssReplaceElements(newSelector, options);
 
       node.selector = newSelector;
       node.processedByPostcssTransformSelector = true;

@@ -1,7 +1,7 @@
 import * as babel from '@babel/core';
-import { PluginItem } from '@babel/core';
+import type { PluginItem } from '@babel/core';
 import { replaceCharacters } from '../utils';
-import { Options } from '../options';
+import { defaultOptions, type UniTailwindPluginOptions } from '../options';
 
 type Babel = typeof babel;
 
@@ -9,14 +9,14 @@ type Babel = typeof babel;
 const MatchScriptsInsideClassNames = /(\{\{)(.+?)(\}\})/g;
 const ReplaceMarker = '__VITE_PLUGIN_UNI_APP_TAILWIND_REPLACE__';
 
-let _options: Options;
+let _options: UniTailwindPluginOptions;
 
 export function babelReplaceStringLiteral(instance: Babel): PluginItem {
   return {
     visitor: {
       StringLiteral(path) {
         const rawContent = path.node.value;
-        const newContent = replaceCharacters(rawContent, _options, 'babel');
+        const newContent = replaceCharacters(rawContent, 'babel', _options);
 
         if (newContent !== rawContent) {
           path.replaceWith(instance.types.stringLiteral(newContent));
@@ -27,7 +27,7 @@ export function babelReplaceStringLiteral(instance: Babel): PluginItem {
   };
 }
 
-export const babelTransformClass = (source: string, options: Options) => {
+export const babelTransformClass = (source: string, options = defaultOptions) => {
   _options = options;
 
   const scriptsMatchResults = [...source.matchAll(MatchScriptsInsideClassNames)];
@@ -35,7 +35,7 @@ export const babelTransformClass = (source: string, options: Options) => {
     source = source.replace(MatchScriptsInsideClassNames, `{{${ReplaceMarker}}}`);
   }
 
-  source = replaceCharacters(source, options, 'babel');
+  source = replaceCharacters(source, 'babel', options);
 
   if (scriptsMatchResults.length > 0) {
     for (const script of scriptsMatchResults) {

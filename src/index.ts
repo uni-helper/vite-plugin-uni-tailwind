@@ -1,44 +1,48 @@
 import type * as Vite from 'vite';
+import { platform } from '@uni-helper/uni-env';
 import { isStyleFile, transformStyle } from './style';
 import { isTemplateFile, transformTemplate } from './template';
-import { Options, UniAppTailwindPluginOptions, defaultOptions } from './options';
+import {
+  type UniTailwindPluginUserOptions,
+  type UniTailwindPluginOptions,
+  defaultOptions,
+} from './options';
 
-export * from './constants';
 export * from './options';
 export * from './style';
 export * from './template';
 
-export default function UniAppTailwindPlugin(options?: UniAppTailwindPluginOptions): Vite.Plugin {
-  const finalOptions: Options = {
-    apply: options?.apply ?? defaultOptions.apply,
-    getShouldApply: options?.getShouldApply ?? defaultOptions.getShouldApply,
-    characterMap: options?.characterMap ?? defaultOptions.characterMap,
-    spaceBetweenElements: options?.spaceBetweenElements ?? defaultOptions.spaceBetweenElements,
-    divideWidthElements: options?.divideWidthElements ?? defaultOptions.divideWidthElements,
-    elementMap: options?.elementMap ?? defaultOptions.elementMap,
+export default function UniAppTailwindPlugin(
+  userOptions?: UniTailwindPluginUserOptions,
+): Vite.Plugin {
+  const options: UniTailwindPluginOptions = {
+    shouldApply:
+      userOptions?.shouldApply === undefined
+        ? defaultOptions.shouldApply
+        : typeof userOptions?.shouldApply === 'boolean'
+        ? userOptions.shouldApply
+        : userOptions.shouldApply(platform),
+    characterMap: userOptions?.characterMap ?? defaultOptions.characterMap,
+    spaceBetweenElements: userOptions?.spaceBetweenElements ?? defaultOptions.spaceBetweenElements,
+    divideWidthElements: userOptions?.divideWidthElements ?? defaultOptions.divideWidthElements,
+    elementMap: userOptions?.elementMap ?? defaultOptions.elementMap,
   };
-
-  const shouldApply = finalOptions.getShouldApply(
-    finalOptions.apply,
-    (process.env.UNI_PLATFORM || 'H5').toUpperCase(),
-  );
 
   return {
     name: 'vite:uni-tailwind',
     enforce: 'post',
-    // eslint-disable-next-line sonarjs/cognitive-complexity
     generateBundle: (_, bundle) => {
-      if (!shouldApply) return;
+      if (!options.shouldApply) return;
       for (const [fileName, asset] of Object.entries(bundle)) {
         if (asset.type === 'asset') {
           const { source } = asset;
           if (source && typeof source === 'string') {
             let newSource = '';
             if (isTemplateFile(fileName)) {
-              newSource = transformTemplate(source, finalOptions);
+              newSource = transformTemplate(source, options);
             }
             if (isStyleFile(fileName)) {
-              newSource = transformStyle(source, finalOptions);
+              newSource = transformStyle(source, options);
             }
             asset.source = newSource || source;
           }
