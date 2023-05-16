@@ -7,6 +7,12 @@ export interface UniTailwindPluginUserOptions {
    * 默认编译为小程序和快应用时应用
    */
   shouldApply?: boolean | ((currentPlatform: string) => boolean);
+  /**
+   * 是否转换模板中某个 attribute
+   *
+   * 默认会转换模板中以 class、Class、classname、className、ClassName、class-name 结尾的 attribute
+   */
+  shouldTransformTemplateAttribute?: (attribute: string) => boolean;
   /** 特殊字符映射 */
   characterMap?: [string, string][];
   /** space between 元素映射 */
@@ -21,12 +27,30 @@ export type UniTailwindPluginOptions = Omit<
   Required<UniTailwindPluginUserOptions>,
   'shouldApply'
 > & {
-  /** 应用该插件的环境判断方法 */
+  /**
+   * 是否应用该插件
+   *
+   * 默认编译为小程序和快应用时应用
+   */
   shouldApply: boolean;
 };
 
-/** 是否应用该插件，默认编译为小程序和快应用时应用 */
+/**
+ * 是否应用该插件
+ *
+ * 默认编译为小程序和快应用时应用
+ */
 export const defaultShouldApply = isMp || isQuickapp;
+
+/**
+ * 是否转换模板中某个 attribute
+ *
+ * 默认会转换模板中以 class、Class、classname、className、ClassName、class-name 结尾的 attribute
+ */
+export const defaultShouldTransformTemplateAttribute = (attribute: string) =>
+  ['class', 'Class', 'classname', 'className', 'ClassName', 'class-name'].some((item) =>
+    attribute.endsWith(item),
+  );
 
 /** 特殊字符映射 */
 export const defaultCharacterMap: [string, string][] = [
@@ -128,6 +152,7 @@ export const defaultElementMap: [string, string[]][] = [
 
 export const defaultOptions: UniTailwindPluginOptions = {
   shouldApply: defaultShouldApply,
+  shouldTransformTemplateAttribute: defaultShouldTransformTemplateAttribute,
   characterMap: defaultCharacterMap,
   spaceBetweenElements: defaultSpaceBetweenElements,
   divideWidthElements: defaultDivideWidthElements,
