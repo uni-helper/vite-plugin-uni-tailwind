@@ -64,6 +64,13 @@ export default defineConfig({
 
 `APP` 使用 `WebView` 运行，`H5` 使用浏览器运行，基本都支持特殊字符，所以默认编译为小程序和快应用时应用该插件。
 
+### `shouldTransformTemplateAttribute`
+
+- 类型：`(attribute: string) => boolean`
+- 默认值：`转换模板中以 class、Class、classname、className、ClassName、class-name 结尾的 attribute`
+
+是否转换模板中某个 `attribute`。
+
 ### `characterMap`
 
 - 类型：`[string, string][]`
