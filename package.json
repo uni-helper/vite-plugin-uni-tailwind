@@ -77,7 +77,7 @@
     "@vitest/coverage-c8": "^0.31.0",
     "@vitest/ui": "^0.31.0",
     "bumpp": "^9.1.0",
-    "c8": "^7.13.0",
+    "c8": "^8.0.0",
     "commitizen": "^4.3.0",
     "concurrently": "^8.0.1",
     "eslint": "^8.40.0",
