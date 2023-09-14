@@ -69,6 +69,7 @@ export const defaultCharacterMap: [string, string][] = [
   ['+', '-a-'], // add
   ['=', '-e-'], // equal
   ['&', '-n-'], // and
+  ['?', '-qm-'], // question mark
   [',', '-c-'], // comma
   [',\\s', '-c-'], // comma
   ['\\\\2c', '-c-'], // comma
