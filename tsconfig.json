@@ -2,8 +2,9 @@
   "extends": "@tsconfig/node18",
   "compilerOptions": {
     "baseUrl": ".",
-    "lib": ["DOM", "ESNext"],
+    "lib": ["ESNext"],
     "module": "ESNext",
+    "moduleResolution": "Bundler",
     "target": "ESNext",
     "resolveJsonModule": true,
     "types": ["@dcloudio/types", "node"]
