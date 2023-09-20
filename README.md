@@ -96,10 +96,13 @@ export default defineConfig({
   ['=', '-e-'], // equal
   ['&', '-n-'], // and
   ['?', '-qm-'], // question mark
-  [',', '-c-'], // comma
+  ['@', '-at-'], // at
   [',\\s', '-c-'], // comma
-  ['\\\\2c', '-c-'], // comma
+  [',', '-c-'], // comma
+  ['\\2c\\s', '-c-'], // comma
+  ['\\2c', '-c-'], // comma
   ['\\\\2c\\s', '-c-'], // comma
+  ['\\\\2c', '-c-'], // comma
 ];
 ```
 
@@ -253,6 +256,7 @@ export default defineConfig({
 该项目从以下项目汲取了灵感并参考了代码。在此对它们的开发者表示由衷的感谢。
 
 - [mini-program-tailwind](https://github.com/dcasia/mini-program-tailwind)
+- [weapp-tailwindcss](https://github.com/sonofmagic/weapp-tailwindcss)
 - [unocss-applet](https://github.com/unocss-applet/unocss-applet)
 - [unocss-preset-weapp](https://github.com/MellowCo/unocss-preset-weapp)
 
