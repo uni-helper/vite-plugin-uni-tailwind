@@ -16,7 +16,7 @@ export function babelReplaceStringLiteral(instance: Babel): PluginItem {
     visitor: {
       StringLiteral(path) {
         const rawContent = path.node.value;
-        const newContent = replaceCharacters(rawContent, 'babel', _options);
+        const newContent = replaceCharacters(rawContent, 'template', _options);
 
         if (newContent !== rawContent) {
           path.replaceWith(instance.types.stringLiteral(newContent));
@@ -35,7 +35,7 @@ export const babelTransformClass = (source: string, options = defaultOptions) =>
     source = source.replace(MatchScriptsInsideClassNames, `{{${ReplaceMarker}}}`);
   }
 
-  source = replaceCharacters(source, 'babel', options);
+  source = replaceCharacters(source, 'template', options);
 
   if (scriptsMatchResults.length > 0) {
     for (const script of scriptsMatchResults) {

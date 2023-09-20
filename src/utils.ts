@@ -2,13 +2,13 @@ import { defaultOptions } from './options';
 
 export const replaceCharacters = (
   source: string,
-  type: 'babel' | 'postcss',
+  type: 'template' | 'style',
   options = defaultOptions,
 ) => {
   let newSource = source;
   for (const [key, value] of options.characterMap) {
     const regExp = new RegExp(
-      key.startsWith('\\') ? key : `${type === 'babel' ? '\\' : '\\\\\\'}${key}`,
+      key.startsWith('\\') ? key : `${type === 'template' ? '\\' : '\\\\\\'}${key}`,
       'g',
     );
     newSource = newSource.replace(regExp, value);

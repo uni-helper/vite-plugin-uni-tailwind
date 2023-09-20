@@ -6,16 +6,10 @@ export function postcssTransformSelector(options = defaultOptions): Plugin {
   return {
     postcssPlugin: 'uni-helper-vite-plugin-uni-tailwind-postcss-transform-selector',
     Rule(node: Rule & { processedByPostcssTransformSelector?: boolean }) {
-      if (node?.processedByPostcssTransformSelector) {
-        return;
-      }
-
+      if (node?.processedByPostcssTransformSelector) return;
       let newSelector = node.selector;
-
-      newSelector = replaceCharacters(newSelector, 'postcss', options);
-
-      newSelector = postcssReplaceElements(newSelector, options);
-
+      newSelector = replaceCharacters(newSelector, 'style', options);
+      newSelector = replaceElements(newSelector, options);
       node.selector = newSelector;
       node.processedByPostcssTransformSelector = true;
     },
