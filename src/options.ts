@@ -70,10 +70,13 @@ export const defaultCharacterMap: [string, string][] = [
   ['=', '-e-'], // equal
   ['&', '-n-'], // and
   ['?', '-qm-'], // question mark
-  [',', '-c-'], // comma
+  ['@', '-at-'], // at
   [',\\s', '-c-'], // comma
-  ['\\\\2c', '-c-'], // comma
+  [',', '-c-'], // comma
+  ['\\2c\\s', '-c-'], // comma
+  ['\\2c', '-c-'], // comma
   ['\\\\2c\\s', '-c-'], // comma
+  ['\\\\2c', '-c-'], // comma
 ];
 
 /**
