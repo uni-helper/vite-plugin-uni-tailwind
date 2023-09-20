@@ -8,6 +8,12 @@ export interface UniTailwindPluginUserOptions {
    */
   shouldApply?: boolean | ((currentPlatform: string) => boolean);
   /**
+   * 样式处理工具
+   *
+   * 默认使用 postcss
+   */
+  styleHandler?: 'postcss' | 'lightningcss';
+  /**
    * 是否转换模板中某个 attribute
    *
    * 默认会转换模板中以 class、Class、classname、className、ClassName、class-name 结尾的 attribute
@@ -41,6 +47,13 @@ export type UniTailwindPluginOptions = Omit<
  * 默认编译为小程序和快应用时应用
  */
 export const defaultShouldApply = isMp || isQuickapp;
+
+/**
+ * 样式处理工具
+ *
+ * 默认使用 postcss
+ */
+export const defaultStyleHandler = 'postcss';
 
 /**
  * 是否转换模板中某个 attribute
@@ -156,6 +169,7 @@ export const defaultElementMap: [string, string[]][] = [
 
 export const defaultOptions: UniTailwindPluginOptions = {
   shouldApply: defaultShouldApply,
+  styleHandler: defaultStyleHandler,
   shouldTransformTemplateAttribute: defaultShouldTransformTemplateAttribute,
   characterMap: defaultCharacterMap,
   spaceBetweenElements: defaultSpaceBetweenElements,

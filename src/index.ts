@@ -22,6 +22,7 @@ export default function UniAppTailwindPlugin(
         : typeof userOptions?.shouldApply === 'boolean'
         ? userOptions.shouldApply
         : userOptions.shouldApply(platform),
+    styleHandler: userOptions?.styleHandler ?? defaultOptions.styleHandler,
     shouldTransformTemplateAttribute:
       userOptions?.shouldTransformTemplateAttribute ??
       defaultOptions.shouldTransformTemplateAttribute,
@@ -34,7 +35,7 @@ export default function UniAppTailwindPlugin(
   return {
     name: 'vite:uni-tailwind',
     enforce: 'post',
-    generateBundle: (_, bundle) => {
+    generateBundle: async (_, bundle) => {
       if (!options.shouldApply) return;
       for (const [fileName, asset] of Object.entries(bundle)) {
         if (asset.type === 'asset') {
@@ -45,7 +46,7 @@ export default function UniAppTailwindPlugin(
               newSource = transformTemplate(source, options);
             }
             if (isStyleFile(fileName)) {
-              newSource = transformStyle(source, options);
+              newSource = await transformStyle(fileName, source, options);
             }
             asset.source = newSource || source;
           }
