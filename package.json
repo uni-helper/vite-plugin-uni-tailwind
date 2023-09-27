@@ -60,12 +60,12 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@babel/core": "^7.23.0",
     "@uni-helper/uni-env": "^0.0.3",
     "@vivaxy/wxml": "^2.1.0",
     "postcss": "^8.4.30"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.0",
     "@babel/eslint-parser": "^7.22.15",
     "@commitlint/cli": "^17.7.1",
     "@commitlint/config-conventional": "^17.7.0",
