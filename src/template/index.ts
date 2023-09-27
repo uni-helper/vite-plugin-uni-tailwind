@@ -1,6 +1,6 @@
 import * as wxml from '@vivaxy/wxml';
 import { defaultOptions } from '../options';
-import { replaceCharacters } from '../utils';
+import { babelTransformClass } from './babel';
 
 export const isTemplateFile = (fileName: string) => /.+\.(?:wx|ax|jx|ks|tt|q)ml$/.test(fileName);
 
@@ -12,9 +12,11 @@ export const transformTemplate = (source: string, options = defaultOptions) => {
         options.shouldTransformTemplateAttribute(k),
       );
       for (const k of keys) {
-        node.attributes[k] = replaceCharacters(node.attributes[k], 'template', options);
+        node.attributes[k] = babelTransformClass(node.attributes[k], options);
       }
     }
   });
   return wxml.serialize(parsed);
 };
+
+export { babelTransformClass } from './babel';
