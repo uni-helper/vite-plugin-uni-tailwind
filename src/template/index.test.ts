@@ -62,12 +62,6 @@ describe('template', () => {
     );
   });
 
-  it('support virtualHostClass', () => {
-    expect(transformTemplate('<view class="top-1/2" virtualHostClass="top-1/2"></view>')).toBe(
-      '<view class="top-1-s-2" virtualHostClass="top-1-s-2"></view>',
-    );
-  });
-
   it('support *-classname', () => {
     expect(transformTemplate('<view class="top-1/2" classname="top-1/2"></view>')).toBe(
       '<view class="top-1-s-2" classname="top-1-s-2"></view>',
