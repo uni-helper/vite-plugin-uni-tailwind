@@ -62,10 +62,10 @@ describe('template', () => {
     );
   });
 
-  it('support virtualHostClass', () => {
-    expect(transformTemplate('<view class="top-1/2" virtualHostClass="top-1/2"></view>')).toBe(
-      '<view class="top-1-s-2" virtualHostClass="top-1-s-2"></view>',
-    );
+  it('replace complex class', () => {
+    expect(
+      transformTemplate(`<view class="{{['w-[10%]','bg-[#fff]',virtualHostClass]}}"></view>`),
+    ).toBe(`<view class="{{[\\"w--10-p--\\",\\"bg---h-fff-\\",virtualHostClass]}}"></view>`);
   });
 
   it('support *-classname', () => {
