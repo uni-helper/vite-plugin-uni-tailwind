@@ -13,13 +13,13 @@ let _options: UniTailwindPluginOptions;
 
 export function babelReplaceStringLiteral(instance: Babel): PluginItem {
   return {
+    name: 'uni-helper-vite-plugin-uni-tailwind-babel-replace-string-literal',
     visitor: {
       StringLiteral(path) {
-        const rawContent = path.node.value;
-        const newContent = replaceCharacters(rawContent, 'template', _options);
-
-        if (newContent !== rawContent) {
-          path.replaceWith(instance.types.stringLiteral(newContent));
+        const { value: raw } = path.node;
+        const replaced = replaceCharacters(raw, 'template', _options);
+        if (replaced !== raw) {
+          path.replaceWith(instance.types.stringLiteral(replaced));
           path.skip();
         }
       },
@@ -31,30 +31,23 @@ export const babelTransformClass = (source: string, options = defaultOptions) =>
   _options = options;
 
   const scriptsMatchResults = [...source.matchAll(MatchScriptsInsideClassNames)];
-  if (scriptsMatchResults.length > 0) {
-    source = source.replace(MatchScriptsInsideClassNames, `{{${ReplaceMarker}}}`);
-  }
+  if (scriptsMatchResults.length === 0) return replaceCharacters(source, 'template', options);
 
-  source = replaceCharacters(source, 'template', options);
-
-  if (scriptsMatchResults.length > 0) {
-    for (const script of scriptsMatchResults) {
-      const scriptContent = script[0].replace(MatchScriptsInsideClassNames, '$2');
-
-      const output = babel.transformSync(scriptContent, {
-        generatorOpts: {
-          compact: true,
-          retainLines: true,
-        },
-        configFile: false,
-        plugins: [babelReplaceStringLiteral],
-      });
-
-      if (output?.code) {
-        source = source.replace(ReplaceMarker, output.code.replace(/;$/, ''));
-      }
+  let newSource = source.replace(MatchScriptsInsideClassNames, `{{${ReplaceMarker}}}`);
+  for (const result of scriptsMatchResults) {
+    const replaced = result[0].replace(MatchScriptsInsideClassNames, '$2');
+    const output = babel.transformSync(replaced, {
+      generatorOpts: {
+        compact: true,
+        retainLines: true,
+      },
+      configFile: false,
+      plugins: [babelReplaceStringLiteral],
+    });
+    if (output?.code) {
+      newSource = newSource.replace(ReplaceMarker, output.code.replace(/;$/, ''));
     }
   }
 
-  return source;
+  return newSource;
 };
