@@ -144,7 +144,6 @@ export default defineConfig({
   ['html', ['page']],
   ['body', ['page']],
   ['img', ['image']],
-  ['span', ['text']],
   ['a', ['functional-page-navigator', 'navigator']],
   [
     '*',

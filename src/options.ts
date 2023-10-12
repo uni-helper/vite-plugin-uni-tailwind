@@ -98,7 +98,6 @@ export const defaultElementMap: [string, string[]][] = [
   ['html', ['page']],
   ['body', ['page']],
   ['img', ['image']],
-  ['span', ['text']],
   ['a', ['functional-page-navigator', 'navigator']],
   [
     '*',
