@@ -1,6 +1,6 @@
 import * as wxml from '@vivaxy/wxml';
 import { defaultOptions } from '../options';
-import { babelTransformClass } from './babel';
+import { babelTransformClass } from '../tools';
 
 export const isTemplateFile = (fileName: string) => /.+\.(?:wx|ax|jx|ks|tt|q)ml$/.test(fileName);
 
@@ -16,5 +16,3 @@ export const transformTemplate = (source: string, options = defaultOptions) => {
   });
   return wxml.serialize(parsed);
 };
-
-export { babelTransformClass } from './babel';
