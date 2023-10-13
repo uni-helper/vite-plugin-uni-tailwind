@@ -13,6 +13,12 @@ export interface UniTailwindPluginUserOptions {
    * 默认转换以 class、Class、classname、className、ClassName、class-name 结尾的 attribute
    */
   shouldTransformAttribute?: (attribute: string) => boolean;
+  /**
+   * 是否转换某个脚本文件
+   *
+   * 默认转换 pages、components、layouts 开头的脚本文件
+   */
+  shouldTransformScript?: (fileName: string) => boolean;
   /** 特殊字符映射 */
   characterMap?: [string, string][];
   /** space between 元素映射 */
@@ -51,6 +57,14 @@ export const defaultShouldTransformAttribute = (attribute: string) =>
   ['class', 'Class', 'classname', 'className', 'ClassName', 'class-name'].some((item) =>
     attribute.endsWith(item),
   );
+
+/**
+ * 是否转换某个脚本文件
+ *
+ * 默认会转换 pages、components、layouts 开头的脚本文件
+ */
+export const defaultShouldTransformScript = (fileName: string) =>
+  ['pages', 'components', 'layouts'].some((item) => fileName.startsWith(item));
 
 /** 特殊字符映射 */
 export const defaultCharacterMap: [string, string][] = [
@@ -156,6 +170,7 @@ export const defaultElementMap: [string, string[]][] = [
 export const defaultOptions: UniTailwindPluginOptions = {
   shouldApply: defaultShouldApply,
   shouldTransformAttribute: defaultShouldTransformAttribute,
+  shouldTransformScript: defaultShouldTransformScript,
   characterMap: defaultCharacterMap,
   spaceBetweenElements: defaultSpaceBetweenElements,
   divideWidthElements: defaultDivideWidthElements,
