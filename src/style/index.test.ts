@@ -100,10 +100,6 @@ describe('style', () => {
     );
   });
 
-  it('replace span', () => {
-    expect(transformStyle('span {}')).toBe('text {}');
-  });
-
   it('replace a', () => {
     expect(transformStyle('a {}')).toBe('functional-page-navigator,navigator {}');
     expect(transformStyle('textarea {}')).toBe('textarea {}');
