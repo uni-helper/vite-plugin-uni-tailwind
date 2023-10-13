@@ -22,9 +22,8 @@ export default function UniAppTailwindPlugin(
         : typeof userOptions?.shouldApply === 'boolean'
         ? userOptions.shouldApply
         : userOptions.shouldApply(platform),
-    shouldTransformTemplateAttribute:
-      userOptions?.shouldTransformTemplateAttribute ??
-      defaultOptions.shouldTransformTemplateAttribute,
+    shouldTransformAttribute:
+      userOptions?.shouldTransformAttribute ?? defaultOptions.shouldTransformAttribute,
     characterMap: userOptions?.characterMap ?? defaultOptions.characterMap,
     spaceBetweenElements: userOptions?.spaceBetweenElements ?? defaultOptions.spaceBetweenElements,
     divideWidthElements: userOptions?.divideWidthElements ?? defaultOptions.divideWidthElements,

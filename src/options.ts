@@ -8,11 +8,11 @@ export interface UniTailwindPluginUserOptions {
    */
   shouldApply?: boolean | ((currentPlatform: string) => boolean);
   /**
-   * 是否转换模板中某个 attribute
+   * 是否转换某个 attribute
    *
-   * 默认会转换模板中以 class、Class、classname、className、ClassName、class-name 结尾的 attribute
+   * 默认转换以 class、Class、classname、className、ClassName、class-name 结尾的 attribute
    */
-  shouldTransformTemplateAttribute?: (attribute: string) => boolean;
+  shouldTransformAttribute?: (attribute: string) => boolean;
   /** 特殊字符映射 */
   characterMap?: [string, string][];
   /** space between 元素映射 */
@@ -43,11 +43,11 @@ export type UniTailwindPluginOptions = Omit<
 export const defaultShouldApply = isMp || isQuickapp;
 
 /**
- * 是否转换模板中某个 attribute
+ * 是否转换某个 attribute
  *
- * 默认会转换模板中以 class、Class、classname、className、ClassName、class-name 结尾的 attribute
+ * 默认会转换以 class、Class、classname、className、ClassName、class-name 结尾的 attribute
  */
-export const defaultShouldTransformTemplateAttribute = (attribute: string) =>
+export const defaultShouldTransformAttribute = (attribute: string) =>
   ['class', 'Class', 'classname', 'className', 'ClassName', 'class-name'].some((item) =>
     attribute.endsWith(item),
   );
@@ -155,7 +155,7 @@ export const defaultElementMap: [string, string[]][] = [
 
 export const defaultOptions: UniTailwindPluginOptions = {
   shouldApply: defaultShouldApply,
-  shouldTransformTemplateAttribute: defaultShouldTransformTemplateAttribute,
+  shouldTransformAttribute: defaultShouldTransformAttribute,
   characterMap: defaultCharacterMap,
   spaceBetweenElements: defaultSpaceBetweenElements,
   divideWidthElements: defaultDivideWidthElements,
