@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { transformStyle } from './index';
+import { transformStyle } from '.';
 
 describe('style', () => {
   it('replace []', () => {

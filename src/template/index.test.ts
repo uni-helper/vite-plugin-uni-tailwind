@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { transformTemplate } from './index';
+import { transformTemplate } from '.';
 
 describe('template', () => {
   it('replace []', () => {
