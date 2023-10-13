@@ -1,5 +1,11 @@
 # 改动日志
 
+## 0.14.0-0 (2023-10-13)
+
+- feat: 增加 `shouldTransformScript` 选项，允许转换脚本文件
+- feat!: 选项 `shouldTransformTemplateAttribute` 重命名为 `shouldTransformAttribute`，该选项目前也被用于脚本文件的转换
+- feat!: 调整 `elementMap` 默认值，移除 `span` 的转换，`span` 目前被用于微信小程序 Skyline 引擎元素
+
 ## 0.13.1 (2023-09-27)
 
 - revert: 回滚 0.13.0
