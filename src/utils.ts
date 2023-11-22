@@ -48,16 +48,20 @@ export const replaceElements = (source: string, options = defaultOptions) => {
     );
 
   for (const [key, value] of elementMap) {
-    newSource = newSource.replace(
-      new RegExp(
-        key === '*'
-          ? // eslint-disable-next-line no-useless-escape
-            `(?<![a-zA-Z-> ])\\${key}(?=[\,\s\0{])|(?<![a-zA-Z-> ])\\${key}$`
-          : // eslint-disable-next-line no-useless-escape
-            `(?<![a-zA-Z-> ])${key}(?=[\,\s\0{])|(?<![a-zA-Z-> ])${key}$`,
-      ),
-      value.join(','),
-    );
+    newSource =
+      key === '*'
+        ? newSource.replace(
+            new RegExp(
+              `(?<![\\da-zA-Z\\-_> ])\\${key}(?=[\\,\\s\\0{])|(?<![\\da-zA-Z\\-_> ])\\${key}$`,
+            ),
+            value.join(','),
+          )
+        : newSource.replace(
+            new RegExp(
+              `(?<![\\da-zA-Z\\-_> ])${key}(?=[\\,\\s\\0{])|(?<![\\da-zA-Z\\-_> ])${key}$`,
+            ),
+            value.join(','),
+          );
   }
 
   return newSource;
