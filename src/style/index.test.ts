@@ -82,6 +82,7 @@ describe('style', () => {
 
   it('replace body', () => {
     expect(transformStyle('body {}')).toBe('page {}');
+    expect(transformStyle('.uv-form-item__body {}')).toBe('.uv-form-item__body {}');
   });
 
   it('replace img', () => {
@@ -102,6 +103,9 @@ describe('style', () => {
 
   it('replace a', () => {
     expect(transformStyle('a {}')).toBe('functional-page-navigator,navigator {}');
+    expect(transformStyle('.uv-form-item.data-v-591e6b6a {}')).toBe(
+      '.uv-form-item.data-v-591e6b6a {}',
+    );
     expect(transformStyle('textarea {}')).toBe('textarea {}');
   });
 
