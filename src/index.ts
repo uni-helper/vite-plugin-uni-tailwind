@@ -24,8 +24,8 @@ export default function UniAppTailwindPlugin(
       userOptions?.shouldApply === undefined
         ? defaultOptions.shouldApply
         : typeof userOptions?.shouldApply === 'boolean'
-        ? userOptions.shouldApply
-        : userOptions.shouldApply(platform),
+          ? userOptions.shouldApply
+          : userOptions.shouldApply(platform),
     shouldTransformAttribute:
       userOptions?.shouldTransformAttribute ?? defaultOptions.shouldTransformAttribute,
     shouldTransformScript:
