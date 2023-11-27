@@ -85,4 +85,19 @@ describe('template', () => {
       '<view class="top-1-s-2" label-class-name="top-1-s-2"></view>',
     );
   });
+
+  it('replace unicode', () => {
+    expect(transformTemplate('<view class="2xl:rounded-2xl"></view>')).toBe(
+      '<view class="xxl_rounded-2xl"></view>',
+    );
+    expect(transformTemplate('<view class="3xl:rounded-3xl"></view>')).toBe(
+      '<view class="xxxl_rounded-3xl"></view>',
+    );
+    expect(transformTemplate('<view class="p-4 2xl:rounded-2xl fake-class"></view>')).toBe(
+      '<view class="p-4 xxl_rounded-2xl fake-class"></view>',
+    );
+    expect(transformTemplate('<view class="p-4 3xl:rounded-3xl fake-class"></view>')).toBe(
+      '<view class="p-4 xxxl_rounded-3xl fake-class"></view>',
+    );
+  });
 });

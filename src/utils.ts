@@ -1,5 +1,19 @@
 import { defaultOptions } from './options';
 
+export const replaceUnicode = (source: string, type: 'template' | 'style') => {
+  if (type === 'style') {
+    return source.replace(/^\.\\(\d{2})/, (match, p1) => {
+      const count = Number.parseInt(String.fromCodePoint(Number.parseInt(p1, 16)), 10) - 1;
+      return '.' + 'x'.repeat(count);
+    });
+  }
+  const newSource = source.replace(/^(\d)|\s(\d)/, (match) => {
+    const count = Number.parseInt(match, 10) - 1;
+    return (match.startsWith(' ') ? ' ' : '') + 'x'.repeat(count);
+  });
+  return newSource;
+};
+
 export const replaceCharacters = (
   source: string,
   type: 'template' | 'style',

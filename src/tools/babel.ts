@@ -1,7 +1,7 @@
 import * as babel from '@babel/core';
 import type { PluginItem } from '@babel/core';
 import type { OutputChunk } from 'rollup';
-import { replaceCharacters } from '../utils';
+import { replaceCharacters, replaceUnicode } from '../utils';
 import { defaultOptions } from '../options';
 
 type Babel = typeof babel;
@@ -12,7 +12,9 @@ export const babelTransformClass = (source: string, options = defaultOptions) =>
   const ScriptsRegExp = /(\{\{)(.+?)(\}\})/g;
   const results = [...source.matchAll(ScriptsRegExp)];
   // 没有 {{}}，直接替换
-  if (results.length === 0) return replaceCharacters(source, 'template', options);
+  if (results.length === 0) {
+    return replaceCharacters(replaceUnicode(source, 'template'), 'template', options);
+  }
   // 有 {{}}
   // 先替换 {{}} 中内容为 ReplaceMarker
   const ReplaceMarker = '__VITE_PLUGIN_UNI_APP_TAILWIND__';
@@ -34,7 +36,11 @@ export const babelTransformClass = (source: string, options = defaultOptions) =>
           visitor: {
             StringLiteral(path) {
               const raw = path.node.value;
-              const replaced = replaceCharacters(raw, 'template', options);
+              const replaced = replaceCharacters(
+                replaceUnicode(raw, 'template'),
+                'template',
+                options,
+              );
               if (replaced !== raw) path.replaceWith(instance.types.stringLiteral(replaced));
             },
           },
@@ -130,7 +136,11 @@ export const babelTransformScript = (
             if (!options.shouldTransformAttribute(path.parentPath.node.key.value)) return;
             if (path.node.value === path.parentPath.node.key.value) return;
             const raw = path.node.value;
-            const replaced = replaceCharacters(raw, 'template', options);
+            const replaced = replaceCharacters(
+              replaceUnicode(raw, 'template'),
+              'template',
+              options,
+            );
             if (replaced !== raw) path.replaceWith(instance.types.stringLiteral(replaced));
           },
         },

@@ -114,4 +114,9 @@ describe('style', () => {
       'page,cover-image,cover-view,match-media,movable-area,movable-view,scroll-view,swiper,swiper-item,view,icon,progress,rich-text,text,button,checkbox,checkbox-group,editor,form,input,label,picker,picker-view,picker-view-column,radio,radio-group,slider,switch,textarea,functional-page-navigator,navigator,audio,camera,image,live-player,live-pusher,video,voip-room,map,canvas,ad,ad-custom,official-account,open-data,web-view,navigation-bar,page-meta, ::before, ::after {}',
     );
   });
+
+  it('replace unicode', () => {
+    expect(transformStyle('.\\32xl\\:rounded-2xl {}')).toBe('.xxl_rounded-2xl {}');
+    expect(transformStyle('.\\33xl\\:rounded-3xl {}')).toBe('.xxxl_rounded-3xl {}');
+  });
 });

@@ -1,5 +1,5 @@
 import { Plugin, Rule } from 'postcss';
-import { replaceCharacters, replaceElements } from '../utils';
+import { replaceCharacters, replaceUnicode, replaceElements } from '../utils';
 import { defaultOptions } from '../options';
 
 export function postcssTransformSelector(options = defaultOptions): Plugin {
@@ -8,6 +8,7 @@ export function postcssTransformSelector(options = defaultOptions): Plugin {
     Rule(node: Rule & { processedByPostcssTransformSelector?: boolean }) {
       if (node?.processedByPostcssTransformSelector) return;
       let newSelector = node.selector;
+      newSelector = replaceUnicode(newSelector, 'style');
       newSelector = replaceCharacters(newSelector, 'style', options);
       newSelector = replaceElements(newSelector, options);
       node.selector = newSelector;
