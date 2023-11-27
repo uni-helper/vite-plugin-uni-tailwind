@@ -118,23 +118,64 @@ export const babelTransformScript = (
           StringLiteral: (path) => {
             if (!path.parentPath.isObjectProperty()) return;
             if (!path.parentPath.parentPath.isObjectExpression()) return;
-            if (!path.parentPath.parentPath.parentPath.isCallExpression()) return;
-            if (path.parentPath.parentPath.parentPath.node.callee.type !== 'MemberExpression')
-              return;
-            if (path.parentPath.parentPath.parentPath.node.callee.object.type !== 'Identifier')
-              return;
-            if (path.parentPath.parentPath.parentPath.node.callee.object.name !== vendorName)
-              return;
-            if (path.parentPath.parentPath.parentPath.node.callee.property.type !== 'Identifier')
-              return;
             if (
-              path.parentPath.parentPath.parentPath.node.callee.property.name !==
-              vendorExportMap.renderProps
+              !path.parentPath.parentPath.parentPath.isCallExpression() &&
+              !path.parentPath.parentPath.parentPath.isObjectProperty()
             )
               return;
-            if (path.parentPath.node.key.type !== 'StringLiteral') return;
-            if (!options.shouldTransformAttribute(path.parentPath.node.key.value)) return;
-            if (path.node.value === path.parentPath.node.key.value) return;
+            if (path.parentPath.parentPath.parentPath.isCallExpression()) {
+              if (path.parentPath.parentPath.parentPath.node.callee.type !== 'MemberExpression')
+                return;
+              if (path.parentPath.parentPath.parentPath.node.callee.object.type !== 'Identifier')
+                return;
+              if (path.parentPath.parentPath.parentPath.node.callee.object.name !== vendorName)
+                return;
+              if (path.parentPath.parentPath.parentPath.node.callee.property.type !== 'Identifier')
+                return;
+              if (
+                path.parentPath.parentPath.parentPath.node.callee.property.name !==
+                vendorExportMap.renderProps
+              )
+                return;
+              if (path.parentPath.node.key.type !== 'StringLiteral') return;
+              if (!options.shouldTransformAttribute(path.parentPath.node.key.value)) return;
+            } else {
+              if (path.parentPath.parentPath.parentPath.node.key.type !== 'StringLiteral') return;
+              if (!path.parentPath.parentPath.parentPath.parentPath.isObjectExpression()) return;
+              if (!path.parentPath.parentPath.parentPath.parentPath.parentPath.isCallExpression())
+                return;
+              if (
+                path.parentPath.parentPath.parentPath.parentPath.parentPath.node.callee.type !==
+                'MemberExpression'
+              )
+                return;
+              if (
+                path.parentPath.parentPath.parentPath.parentPath.parentPath.node.callee.object
+                  .type !== 'Identifier'
+              )
+                return;
+              if (
+                path.parentPath.parentPath.parentPath.parentPath.parentPath.node.callee.object
+                  .name !== vendorName
+              )
+                return;
+              if (
+                path.parentPath.parentPath.parentPath.parentPath.parentPath.node.callee.property
+                  .type !== 'Identifier'
+              )
+                return;
+              if (
+                path.parentPath.parentPath.parentPath.parentPath.parentPath.node.callee.property
+                  .name !== vendorExportMap.renderProps
+              )
+                return;
+              if (
+                !options.shouldTransformAttribute(
+                  path.parentPath.parentPath.parentPath.node.key.value,
+                )
+              )
+                return;
+            }
             const raw = path.node.value;
             const replaced = replaceCharacters(
               replaceUnicode(raw, 'template'),

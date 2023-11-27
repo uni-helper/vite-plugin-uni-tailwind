@@ -127,6 +127,9 @@ describe('babel', () => {
           return {
             a: common_vendor.p({
               ["container-class"]: "bg-[#fff]",
+              ["test-class"]: {
+                "bg-[#fff]": true,
+              },
               ["container-style"]: {
                 backgroundColor: "#fff"
               }
@@ -183,6 +186,9 @@ describe('babel', () => {
       return{
       a:common_vendor.p({
       [\\"container-class\\"]:\\"bg---h-fff-\\",
+      [\\"test-class\\"]:{
+      \\"bg---h-fff-\\":true
+      },
       [\\"container-style\\"]:{
       backgroundColor:\\"#fff\\"
       }
@@ -196,11 +202,11 @@ describe('babel', () => {
     `);
     expect(
       babelTransformScript(
-        `"use strict";var e=Object.defineProperty,t=Object.defineProperties,r=Object.getOwnPropertyDescriptors,o=Object.getOwnPropertySymbols,n=Object.prototype.hasOwnProperty,a=Object.prototype.propertyIsEnumerable,s=(t,r,o)=>r in t?e(t,r,{enumerable:!0,configurable:!0,writable:!0,value:o}):t[r]=o;const c=require("../common/vendor.js");if(!Array){(()=>"../components/v-status-bar/v-status-bar.js")()}Math;const p=c.defineComponent({name:"ComplexLayout",options:{virtualHost:!0}}),i=c.defineComponent((f=((e,t)=>{for(var r in t||(t={}))n.call(t,r)&&s(e,r,t[r]);if(o)for(var r of o(t))a.call(t,r)&&s(e,r,t[r]);return e})({},p),t(f,r({setup:e=>(e,t)=>({a:c.p({"container-class":"bg-[#fff]","container-style":{backgroundColor:"#fff"}})})}))));var f;wx.createComponent(i);`,
+        `"use strict";var e=Object.defineProperty,t=Object.defineProperties,r=Object.getOwnPropertyDescriptors,o=Object.getOwnPropertySymbols,n=Object.prototype.hasOwnProperty,a=Object.prototype.propertyIsEnumerable,s=(t,r,o)=>r in t?e(t,r,{enumerable:!0,configurable:!0,writable:!0,value:o}):t[r]=o;const c=require("../common/vendor.js");if(!Array){(()=>"../components/v-status-bar/v-status-bar.js")()}Math;const p=c.defineComponent({name:"ComplexLayout",options:{virtualHost:!0}}),i=c.defineComponent((f=((e,t)=>{for(var r in t||(t={}))n.call(t,r)&&s(e,r,t[r]);if(o)for(var r of o(t))a.call(t,r)&&s(e,r,t[r]);return e})({},p),t(f,r({setup:e=>(e,t)=>({a:c.p({"container-class":"bg-[#fff]","test-class":{"bg-[#fff]":true},"container-style":{backgroundColor:"#fff"}})})}))));var f;wx.createComponent(i);`,
         { renderProps: 'p' },
       ),
     ).toBe(
-      `"use strict";var e=Object.defineProperty,t=Object.defineProperties,r=Object.getOwnPropertyDescriptors,o=Object.getOwnPropertySymbols,n=Object.prototype.hasOwnProperty,a=Object.prototype.propertyIsEnumerable,s=(t,r,o)=>r in t?e(t,r,{enumerable:!0,configurable:!0,writable:!0,value:o}):t[r]=o;const c=require("../common/vendor.js");if(!Array){(()=>"../components/v-status-bar/v-status-bar.js")();}Math;const p=c.defineComponent({name:"ComplexLayout",options:{virtualHost:!0}}),i=c.defineComponent((f=((e,t)=>{for(var r in t||(t={}))n.call(t,r)&&s(e,r,t[r]);if(o)for(var r of o(t))a.call(t,r)&&s(e,r,t[r]);return e;})({},p),t(f,r({setup:(e)=>(e,t)=>({a:c.p({"container-class":"bg---h-fff-","container-style":{backgroundColor:"#fff"}})})}))));var f;wx.createComponent(i);`,
+      `"use strict";var e=Object.defineProperty,t=Object.defineProperties,r=Object.getOwnPropertyDescriptors,o=Object.getOwnPropertySymbols,n=Object.prototype.hasOwnProperty,a=Object.prototype.propertyIsEnumerable,s=(t,r,o)=>r in t?e(t,r,{enumerable:!0,configurable:!0,writable:!0,value:o}):t[r]=o;const c=require("../common/vendor.js");if(!Array){(()=>"../components/v-status-bar/v-status-bar.js")();}Math;const p=c.defineComponent({name:"ComplexLayout",options:{virtualHost:!0}}),i=c.defineComponent((f=((e,t)=>{for(var r in t||(t={}))n.call(t,r)&&s(e,r,t[r]);if(o)for(var r of o(t))a.call(t,r)&&s(e,r,t[r]);return e;})({},p),t(f,r({setup:(e)=>(e,t)=>({a:c.p({"container-class":"bg---h-fff-","test-class":{"bg---h-fff-":true},"container-style":{backgroundColor:"#fff"}})})}))));var f;wx.createComponent(i);`,
     );
   });
 });
