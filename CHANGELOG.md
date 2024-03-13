@@ -1,5 +1,10 @@
 # 改动日志
 
+## 0.15.0 (2024-03-13)
+
+- feat: 支持 `tailwindcss@3.4` [设置直接子元素样式](https://tailwindcss.com/docs/hover-focus-and-other-states#styling-direct-children)
+- feat: 支持修复 `.text-[32rpx]` 样式设置，现在会正确地使用 `font-size` 而不是 `color`
+
 ## 0.14.2 (2023-11-27)
 
 - feat: `transformScript` 支持对象键转换
