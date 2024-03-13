@@ -7,7 +7,7 @@ describe('style', () => {
   });
 
   it('replace [] and ()', () => {
-    expect(transformStyle('bg-\\[url\\(\\)\\] {}')).toBe('bg--url--- {}');
+    expect(transformStyle('.bg-\\[url\\(\\)\\] {}')).toBe('.bg--url--- {}');
   });
 
   it('replace !, [] and .', () => {
@@ -142,6 +142,12 @@ describe('style', () => {
     );
     expect(transformStyle('.\\33xl\\:rounded-3xl {}')).toBe(
       '.xxxl_rounded-3xl {}',
+    );
+  });
+
+  it('fix rpx', () => {
+    expect(transformStyle('.text-\\[32rpx\\] { color: 32rpx; }')).toBe(
+      '.text--32rpx- { font-size: 32rpx; }',
     );
   });
 });
