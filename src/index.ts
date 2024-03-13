@@ -1,15 +1,15 @@
-import type * as Vite from 'vite';
 import { platform } from '@uni-helper/uni-env';
-import type { OutputChunk } from 'rollup';
-import { isStyleFile, transformStyle } from './style';
-import { isTemplateFile, transformTemplate } from './template';
 import {
-  type UniTailwindPluginUserOptions,
   type UniTailwindPluginOptions,
+  type UniTailwindPluginUserOptions,
   defaultOptions,
 } from './options';
 import { isScriptFile, transformScript } from './script';
+import { isStyleFile, transformStyle } from './style';
+import { isTemplateFile, transformTemplate } from './template';
 import { babelGetVendorExportMap } from './tools';
+import type { OutputChunk } from 'rollup';
+import type * as Vite from 'vite';
 
 export * from './options';
 export * from './script';
@@ -20,6 +20,13 @@ export default function UniAppTailwindPlugin(
   userOptions?: UniTailwindPluginUserOptions,
 ): Vite.Plugin {
   const options: UniTailwindPluginOptions = {
+    characterMap: userOptions?.characterMap ?? defaultOptions.characterMap,
+    directChildrenElements:
+      userOptions?.directChildrenElements ??
+      defaultOptions.directChildrenElements,
+    divideWidthElements:
+      userOptions?.divideWidthElements ?? defaultOptions.divideWidthElements,
+    elementMap: userOptions?.elementMap ?? defaultOptions.elementMap,
     shouldApply:
       userOptions?.shouldApply === undefined
         ? defaultOptions.shouldApply
@@ -27,24 +34,27 @@ export default function UniAppTailwindPlugin(
           ? userOptions.shouldApply
           : userOptions.shouldApply(platform),
     shouldTransformAttribute:
-      userOptions?.shouldTransformAttribute ?? defaultOptions.shouldTransformAttribute,
+      userOptions?.shouldTransformAttribute ??
+      defaultOptions.shouldTransformAttribute,
     shouldTransformScript:
-      userOptions?.shouldTransformScript ?? defaultOptions.shouldTransformScript,
-    characterMap: userOptions?.characterMap ?? defaultOptions.characterMap,
-    spaceBetweenElements: userOptions?.spaceBetweenElements ?? defaultOptions.spaceBetweenElements,
-    divideWidthElements: userOptions?.divideWidthElements ?? defaultOptions.divideWidthElements,
-    elementMap: userOptions?.elementMap ?? defaultOptions.elementMap,
+      userOptions?.shouldTransformScript ??
+      defaultOptions.shouldTransformScript,
+    spaceBetweenElements:
+      userOptions?.spaceBetweenElements ?? defaultOptions.spaceBetweenElements,
   };
 
   return {
-    name: 'vite:uni-tailwind',
     enforce: 'post',
     generateBundle: (_, bundle) => {
       if (!options.shouldApply) return;
 
       // 解析
-      const vendorKey = Object.keys(bundle).find((k) => k.endsWith('vendor.js'))!;
-      const vendorExportMap = babelGetVendorExportMap(bundle[vendorKey] as OutputChunk);
+      const vendorKey = Object.keys(bundle).find((k) =>
+        k.endsWith('vendor.js'),
+      )!;
+      const vendorExportMap = babelGetVendorExportMap(
+        bundle[vendorKey] as OutputChunk,
+      );
 
       // 转换
       for (const [fileName, asset] of Object.entries(bundle)) {
@@ -54,12 +64,15 @@ export default function UniAppTailwindPlugin(
           const { source } = asset;
           if (source && typeof source === 'string') {
             let newSource = '';
-            if (isTemplateFile(fileName)) newSource = transformTemplate(source, options);
-            if (isStyleFile(fileName)) newSource = transformStyle(source, options);
+            if (isTemplateFile(fileName))
+              newSource = transformTemplate(source, options);
+            if (isStyleFile(fileName))
+              newSource = transformStyle(source, options);
             asset.source = newSource || source;
           }
         }
       }
     },
+    name: 'vite:uni-tailwind',
   };
 }

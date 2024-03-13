@@ -104,6 +104,7 @@ export default defineConfig({
   ['&', '-n-'], // and
   ['?', '-qm-'], // question mark
   ['@', '-at-'], // at
+  ['*', '-w-'], // wildcard
   [',\\s', '-c-'], // comma
   [',', '-c-'], // comma
   ['\\2c\\s', '-c-'], // comma
@@ -117,7 +118,7 @@ export default defineConfig({
 
 如果不替换，可能会导致无法正常运行。如果确认无需替换，请设置为空数组。
 
-替换顺序：`characterMap` -> `spaceBetweenElements` -> `divideWidthElements` -> `elementMap`。
+替换顺序：`directChildrenElements` -> `spaceBetweenElements` -> `divideWidthElements` -> `characterMap` -> `elementMap`。
 
 ### `spaceBetweenElements`
 
@@ -128,7 +129,7 @@ export default defineConfig({
 
 如果不替换，可能会导致无法正常运行。如果确认无需替换，请设置为空数组。
 
-替换顺序：`characterMap` -> `spaceBetweenElements` -> `divideWidthElements` -> `elementMap`。
+替换顺序：`directChildrenElements` -> `spaceBetweenElements` -> `divideWidthElements` -> `characterMap` -> `elementMap`。
 
 ### `divideWidthElements`
 
@@ -139,7 +140,18 @@ export default defineConfig({
 
 如果不替换，可能会导致无法正常运行。如果确认无需替换，请设置为空数组。
 
-替换顺序：`characterMap` -> `spaceBetweenElements` -> `divideWidthElements` -> `elementMap`。
+替换顺序：`directChildrenElements` -> `spaceBetweenElements` -> `divideWidthElements` -> `characterMap` -> `elementMap`。
+
+### `directChildrenElements`
+
+- 类型：`string[]`
+- 默认值：`['view', 'button', 'text', 'image']`
+
+[Direct Children](https://tailwindcss.com/docs/hover-focus-and-other-states#styling-direct-children) 生成样式中，后一个 `*` 需要替换成什么元素。
+
+如果不替换，可能会导致无法正常运行。如果确认无需替换，请设置为空数组。
+
+替换顺序：`directChildrenElements` -> `spaceBetweenElements` -> `divideWidthElements` -> `characterMap` -> `elementMap`。
 
 ### `elementMap`
 
@@ -211,7 +223,7 @@ export default defineConfig({
 
 如果不替换，可能会导致无法正常运行。如果确认无需替换，请设置为空数组。
 
-替换顺序：`characterMap` -> `spaceBetweenElements` -> `divideWidthElements` -> `elementMap`。
+替换顺序：`directChildrenElements` -> `spaceBetweenElements` -> `divideWidthElements` -> `characterMap` -> `elementMap`。
 
 ## FAQ
 

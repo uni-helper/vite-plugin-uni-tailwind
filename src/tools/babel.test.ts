@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { babelTransformClass, babelGetVendorName, babelTransformScript } from '.';
+import {
+  babelGetVendorName,
+  babelTransformClass,
+  babelTransformScript,
+} from '.';
 
 describe('babel', () => {
   it('babelTransformClass', () => {
@@ -13,11 +17,14 @@ describe('babel', () => {
     expect(babelTransformClass('w-[200.5rpx]')).toBe('w--200-d-5rpx-');
     expect(babelTransformClass('sm:mx-auto')).toBe('sm_mx-auto');
     expect(babelTransformClass('bg-[#fff]')).toBe('bg---h-fff-');
-    expect(babelTransformClass('bg-[rgba(255,255,255,1)]')).toBe('bg--rgba-255-c-255-c-255-c-1--');
-    expect(babelTransformClass('w-[10%]')).toBe('w--10-p--');
-    expect(babelTransformClass(`{{['w-[10%]','bg-[#fff]',virtualHostClass]}}`)).toBe(
-      `{{["w--10-p--","bg---h-fff-",virtualHostClass]}}`,
+    expect(babelTransformClass('bg-[rgba(255,255,255,1)]')).toBe(
+      'bg--rgba-255-c-255-c-255-c-1--',
     );
+    expect(babelTransformClass('w-[10%]')).toBe('w--10-p--');
+    expect(
+      babelTransformClass(`{{['w-[10%]','bg-[#fff]',virtualHostClass]}}`),
+    ).toBe(`{{["w--10-p--","bg---h-fff-",virtualHostClass]}}`);
+    expect(babelTransformClass(`*:rounded-full`)).toBe(`-w-_rounded-full`);
   });
 
   it('babelGetVendorName', () => {
@@ -144,7 +151,7 @@ describe('babel', () => {
         { renderProps: 'p' },
       ),
     ).toMatchInlineSnapshot(`
-      "\\"use strict\\";
+      ""use strict";
       var __defProp=Object.defineProperty;
       var __defProps=Object.defineProperties;
       var __getOwnPropDescs=Object.getOwnPropertyDescriptors;
@@ -164,18 +171,18 @@ describe('babel', () => {
       return a;
       };
       var __spreadProps=(a,b)=>__defProps(a,__getOwnPropDescs(b));
-      const common_vendor=require(\\"../common/vendor.js\\");
-      const __unplugin_components_0=()=>\\"../components/v-status-bar/v-status-bar.js\\";
+      const common_vendor=require("../common/vendor.js");
+      const __unplugin_components_0=()=>"../components/v-status-bar/v-status-bar.js";
       if(!Array){
       const _easycom_v_status_bar2=__unplugin_components_0;
       _easycom_v_status_bar2();
       }
-      const _easycom_v_status_bar=()=>\\"../components/v-status-bar/v-status-bar.js\\";
+      const _easycom_v_status_bar=()=>"../components/v-status-bar/v-status-bar.js";
       if(!Math){
       _easycom_v_status_bar();
       }
       const __default__=common_vendor.defineComponent({
-      name:\\"ComplexLayout\\",
+      name:"ComplexLayout",
       options:{
       virtualHost:true
       }
@@ -185,19 +192,19 @@ describe('babel', () => {
       return(_ctx,_cache)=>{
       return{
       a:common_vendor.p({
-      [\\"container-class\\"]:\\"bg---h-fff-\\",
-      [\\"test-class\\"]:{
-      \\"bg---h-fff-\\":true
+      ["container-class"]:"bg---h-fff-",
+      ["test-class"]:{
+      "bg---h-fff-":true
       },
-      [\\"container-style\\"]:{
-      backgroundColor:\\"#fff\\"
+      ["container-style"]:{
+      backgroundColor:"#fff"
       }
       })
       };
       };
       }
       }));
-      const Component=/* @__PURE__ */common_vendor._export_sfc(_sfc_main,[[\\"__file\\",\\"/miniprogram/src/layouts/complex.vue\\"]]);
+      const Component=/* @__PURE__ */common_vendor._export_sfc(_sfc_main,[["__file","/miniprogram/src/layouts/complex.vue"]]);
       wx.createComponent(Component);"
     `);
     expect(

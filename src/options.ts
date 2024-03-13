@@ -1,12 +1,20 @@
 import { isMp, isQuickapp } from '@uni-helper/uni-env';
 
 export interface UniTailwindPluginUserOptions {
+  /** 特殊字符映射 */
+  characterMap?: [string, string][];
+  /** Direct children 元素映射 */
+  directChildrenElements?: string[];
+  /** Divide width 元素映射 */
+  divideWidthElements?: string[];
+  /** 元素映射 */
+  elementMap?: [string, string[]][];
   /**
    * 是否应用该插件
    *
    * 默认编译为小程序和快应用时应用
    */
-  shouldApply?: boolean | ((currentPlatform: string) => boolean);
+  shouldApply?: ((currentPlatform: string) => boolean) | boolean;
   /**
    * 是否转换某个 attribute
    *
@@ -19,14 +27,8 @@ export interface UniTailwindPluginUserOptions {
    * 默认转换 pages、components、layouts 开头的脚本文件
    */
   shouldTransformScript?: (fileName: string) => boolean;
-  /** 特殊字符映射 */
-  characterMap?: [string, string][];
-  /** space between 元素映射 */
+  /** Space between 元素映射 */
   spaceBetweenElements?: string[];
-  /** divide width 元素映射 */
-  divideWidthElements?: string[];
-  /** 元素映射 */
-  elementMap?: [string, string[]][];
 }
 
 export type UniTailwindPluginOptions = Omit<
@@ -54,8 +56,8 @@ export const defaultShouldApply = isMp || isQuickapp;
  * 默认会转换以 class、Class、classname、className、ClassName、class-name 结尾的 attribute
  */
 export const defaultShouldTransformAttribute = (attribute: string) =>
-  ['class', 'Class', 'classname', 'className', 'ClassName', 'class-name'].some((item) =>
-    attribute.endsWith(item),
+  ['class', 'Class', 'classname', 'className', 'ClassName', 'class-name'].some(
+    (item) => attribute.endsWith(item),
   );
 
 /**
@@ -85,6 +87,7 @@ export const defaultCharacterMap: [string, string][] = [
   ['&', '-n-'], // and
   ['?', '-qm-'], // question mark
   ['@', '-at-'], // at
+  ['*', '-w-'], // wildcard
   [',\\s', '-c-'], // comma
   [',', '-c-'], // comma
   ['\\2c\\s', '-c-'], // comma
@@ -94,18 +97,30 @@ export const defaultCharacterMap: [string, string][] = [
 ];
 
 /**
- * space between 元素映射
+ * Space between 元素映射
  *
  * https://tailwindcss.com/docs/space
  */
 export const defaultSpaceBetweenElements = ['view', 'button', 'text', 'image'];
 
 /**
- * divide width 元素映射
+ * Divide width 元素映射
  *
  * https://tailwindcss.com/docs/divide-width
  */
 export const defaultDivideWidthElements = ['view', 'button', 'text', 'image'];
+
+/**
+ * Direct Children 元素映射
+ *
+ * https://tailwindcss.com/docs/hover-focus-and-other-states#styling-direct-children
+ */
+export const defaultDirectChildrenElements = [
+  'view',
+  'button',
+  'text',
+  'image',
+];
 
 /** 元素映射 */
 export const defaultElementMap: [string, string[]][] = [
@@ -168,11 +183,12 @@ export const defaultElementMap: [string, string[]][] = [
 ];
 
 export const defaultOptions: UniTailwindPluginOptions = {
+  characterMap: defaultCharacterMap,
+  directChildrenElements: defaultDirectChildrenElements,
+  divideWidthElements: defaultDivideWidthElements,
+  elementMap: defaultElementMap,
   shouldApply: defaultShouldApply,
   shouldTransformAttribute: defaultShouldTransformAttribute,
   shouldTransformScript: defaultShouldTransformScript,
-  characterMap: defaultCharacterMap,
   spaceBetweenElements: defaultSpaceBetweenElements,
-  divideWidthElements: defaultDivideWidthElements,
-  elementMap: defaultElementMap,
 } as const;

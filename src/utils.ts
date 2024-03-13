@@ -1,9 +1,10 @@
 import { defaultOptions } from './options';
 
-export const replaceUnicode = (source: string, type: 'template' | 'style') => {
+export const replaceUnicode = (source: string, type: 'style' | 'template') => {
   if (type === 'style') {
     return source.replace(/^\.\\(\d{2})/, (match, p1) => {
-      const count = Number.parseInt(String.fromCodePoint(Number.parseInt(p1, 16)), 10) - 1;
+      const count =
+        Number.parseInt(String.fromCodePoint(Number.parseInt(p1, 16)), 10) - 1;
       return '.' + 'x'.repeat(count);
     });
   }
@@ -16,13 +17,15 @@ export const replaceUnicode = (source: string, type: 'template' | 'style') => {
 
 export const replaceCharacters = (
   source: string,
-  type: 'template' | 'style',
+  type: 'style' | 'template',
   options = defaultOptions,
 ) => {
   let newSource = source;
   for (const [key, value] of options.characterMap) {
     const regExp = new RegExp(
-      key.startsWith('\\') ? key : `${type === 'template' ? '\\' : '\\\\\\'}${key}`,
+      key.startsWith('\\')
+        ? key
+        : `${type === 'template' ? '\\' : '\\\\\\'}${key}`,
       'g',
     );
     newSource = newSource.replace(regExp, value);
@@ -33,8 +36,19 @@ export const replaceCharacters = (
 export const replaceElements = (source: string, options = defaultOptions) => {
   let newSource = source;
 
-  const { spaceBetweenElements, divideWidthElements, elementMap } = options;
+  const {
+    directChildrenElements,
+    divideWidthElements,
+    elementMap,
+    spaceBetweenElements,
+  } = options;
   newSource = newSource
+    // direct children * https://tailwindcss.com/docs/hover-focus-and-other-states#styling-direct-children
+    .replace(
+      /^\.(\\\*\\:.*>\s?)(\*)/,
+      directChildrenElements.map((element) => `.$1${element}`).join(','),
+    )
+    // space * https://tailwindcss.com/docs/space
     .replace(
       /^\.(-?space-\w)(-.+?)\s?>.*/,
       spaceBetweenElements
