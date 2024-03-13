@@ -1,3 +1,6 @@
 import { eslint } from '@modyqyw/fabric';
 
-export default eslint();
+export default eslint({
+  unocss: false,
+  perfectionist: false,
+});
