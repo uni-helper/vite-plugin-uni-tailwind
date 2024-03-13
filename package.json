@@ -53,7 +53,7 @@
     "format": "prettier . \"!**/package-lock.json*\" \"!**/yarn.lock\" \"!**/pnpm-lock.yaml\" --ignore-unknown --write --cache --log-level=warn",
     "preinstall": "npx only-allow pnpm",
     "lint": "conc \"pnpm:lint:eslint\" \"pnpm:lint:markdownlint\"",
-    "lint:eslint": "eslint . --fix --cache",
+    "lint:eslint": "eslint ./src --fix --cache",
     "lint:markdownlint": "markdownlint . --fix --ignore-path=.gitignore",
     "lint:oxlint": "oxlint --deny=correctness --deny=perf --fix",
     "lint:script": "pnpm run lint:oxlint && pnpm run lint:eslint",
