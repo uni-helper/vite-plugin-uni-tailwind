@@ -1,6 +1,6 @@
 {
   "name": "@uni-helper/vite-plugin-uni-tailwind",
-  "version": "0.15.0",
+  "version": "0.15.1",
   "description": "支持在 uni-app 中使用 TailwindCSS@3 原有语法开发",
   "keywords": [
     "vite",
