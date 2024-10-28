@@ -2,8 +2,11 @@ import * as wxml from "@vivaxy/wxml";
 import { defaultOptions } from "../options";
 import { babelTransformClass } from "../tools";
 
-export const isTemplateFile = (fileName: string) =>
-  /.+\.(?:wx|ax|jx|ks|tt|q)ml$/.test(fileName);
+export const isTemplateFile = (fileName: string) => {
+  return ["wxml", "axml", "jxml", "ksml", "ttml", "qml", "xhsml", "swan"].some(
+    (ext) => fileName.endsWith(ext),
+  );
+};
 
 export const transformTemplate = (source: string, options = defaultOptions) => {
   const parsed = wxml.parse(source);
