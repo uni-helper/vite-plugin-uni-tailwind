@@ -63,7 +63,7 @@ export const defaultShouldTransformAttribute = (attribute: string) =>
 /**
  * 是否转换某个脚本文件
  *
- * 默认会转换 pages、components、layouts 开头的脚本文件
+ * 默认会转换路径以 pages、components、layouts 开头的脚本文件
  */
 export const defaultShouldTransformScript = (fileName: string) =>
   ["pages", "components", "layouts"].some((item) => fileName.startsWith(item));
