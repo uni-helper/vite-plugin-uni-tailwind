@@ -2,8 +2,11 @@ import postcss from "postcss";
 import { defaultOptions } from "../options";
 import { postcssTransformSelector } from "../tools";
 
-export const isStyleFile = (fileName: string) =>
-  /.+\.(?:wx|ac|jx|tt|q|c)ss$/.test(fileName);
+export const isStyleFile = (fileName: string) => {
+  return ["wxss", "acss", "jxss", "ttss", "qss", "css"].some((ext) =>
+    fileName.endsWith(ext),
+  );
+};
 
 export const transformStyle = (source: string, options = defaultOptions) => {
   const processor = postcss().use(postcssTransformSelector(options));
