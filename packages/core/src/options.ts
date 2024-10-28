@@ -1,4 +1,4 @@
-import { isMp, isQuickapp } from '@uni-helper/uni-env';
+import { isMp, isQuickapp } from "@uni-helper/uni-env";
 
 export interface UniTailwindPluginUserOptions {
   /** 特殊字符映射 */
@@ -33,7 +33,7 @@ export interface UniTailwindPluginUserOptions {
 
 export type UniTailwindPluginOptions = Omit<
   Required<UniTailwindPluginUserOptions>,
-  'shouldApply'
+  "shouldApply"
 > & {
   /**
    * 是否应用该插件
@@ -56,7 +56,7 @@ export const defaultShouldApply = isMp || isQuickapp;
  * 默认会转换以 class、Class、classname、className、ClassName、class-name 结尾的 attribute
  */
 export const defaultShouldTransformAttribute = (attribute: string) =>
-  ['class', 'Class', 'classname', 'className', 'ClassName', 'class-name'].some(
+  ["class", "Class", "classname", "className", "ClassName", "class-name"].some(
     (item) => attribute.endsWith(item),
   );
 
@@ -66,34 +66,34 @@ export const defaultShouldTransformAttribute = (attribute: string) =>
  * 默认会转换 pages、components、layouts 开头的脚本文件
  */
 export const defaultShouldTransformScript = (fileName: string) =>
-  ['pages', 'components', 'layouts'].some((item) => fileName.startsWith(item));
+  ["pages", "components", "layouts"].some((item) => fileName.startsWith(item));
 
 /** 特殊字符映射 */
 export const defaultCharacterMap: [string, string][] = [
-  ['[', '-'],
-  [']', '-'],
-  ['(', '-'],
-  [')', '-'],
-  ['$', '-v-'], // css variable
-  ['#', '-h-'], // hash
-  ['!', '-i-'], // important
-  ['/', '-s-'], // slash
-  ['.', '-d-'], // dot
-  [':', '_'], // colon
-  ['%', '-p-'], // percentage
-  ["'", '-q-'], // quote
-  ['+', '-a-'], // add
-  ['=', '-e-'], // equal
-  ['&', '-n-'], // and
-  ['?', '-qm-'], // question mark
-  ['@', '-at-'], // at
-  ['*', '-w-'], // wildcard
-  [',\\s', '-c-'], // comma
-  [',', '-c-'], // comma
-  ['\\2c\\s', '-c-'], // comma
-  ['\\2c', '-c-'], // comma
-  ['\\\\2c\\s', '-c-'], // comma
-  ['\\\\2c', '-c-'], // comma
+  ["[", "-"],
+  ["]", "-"],
+  ["(", "-"],
+  [")", "-"],
+  ["$", "-v-"], // css variable
+  ["#", "-h-"], // hash
+  ["!", "-i-"], // important
+  ["/", "-s-"], // slash
+  [".", "-d-"], // dot
+  [":", "_"], // colon
+  ["%", "-p-"], // percentage
+  ["'", "-q-"], // quote
+  ["+", "-a-"], // add
+  ["=", "-e-"], // equal
+  ["&", "-n-"], // and
+  ["?", "-qm-"], // question mark
+  ["@", "-at-"], // at
+  ["*", "-w-"], // wildcard
+  [",\\s", "-c-"], // comma
+  [",", "-c-"], // comma
+  ["\\2c\\s", "-c-"], // comma
+  ["\\2c", "-c-"], // comma
+  ["\\\\2c\\s", "-c-"], // comma
+  ["\\\\2c", "-c-"], // comma
 ];
 
 /**
@@ -101,14 +101,14 @@ export const defaultCharacterMap: [string, string][] = [
  *
  * https://tailwindcss.com/docs/space
  */
-export const defaultSpaceBetweenElements = ['view', 'button', 'text', 'image'];
+export const defaultSpaceBetweenElements = ["view", "button", "text", "image"];
 
 /**
  * Divide width 元素映射
  *
  * https://tailwindcss.com/docs/divide-width
  */
-export const defaultDivideWidthElements = ['view', 'button', 'text', 'image'];
+export const defaultDivideWidthElements = ["view", "button", "text", "image"];
 
 /**
  * Direct Children 元素映射
@@ -116,68 +116,68 @@ export const defaultDivideWidthElements = ['view', 'button', 'text', 'image'];
  * https://tailwindcss.com/docs/hover-focus-and-other-states#styling-direct-children
  */
 export const defaultDirectChildrenElements = [
-  'view',
-  'button',
-  'text',
-  'image',
+  "view",
+  "button",
+  "text",
+  "image",
 ];
 
 /** 元素映射 */
 export const defaultElementMap: [string, string[]][] = [
-  ['html', ['page']],
-  ['body', ['page']],
-  ['img', ['image']],
-  ['a', ['functional-page-navigator', 'navigator']],
+  ["html", ["page"]],
+  ["body", ["page"]],
+  ["img", ["image"]],
+  ["a", ["functional-page-navigator", "navigator"]],
   [
-    '*',
+    "*",
     [
-      'page',
-      'cover-image',
-      'cover-view',
-      'match-media',
-      'movable-area',
-      'movable-view',
-      'scroll-view',
-      'swiper',
-      'swiper-item',
-      'view',
-      'icon',
-      'progress',
-      'rich-text',
-      'text',
-      'button',
-      'checkbox',
-      'checkbox-group',
-      'editor',
-      'form',
-      'input',
-      'label',
-      'picker',
-      'picker-view',
-      'picker-view-column',
-      'radio',
-      'radio-group',
-      'slider',
-      'switch',
-      'textarea',
-      'functional-page-navigator',
-      'navigator',
-      'audio',
-      'camera',
-      'image',
-      'live-player',
-      'live-pusher',
-      'video',
-      'voip-room',
-      'map',
-      'canvas',
-      'ad',
-      'ad-custom',
-      'official-account',
-      'open-data',
-      'web-view',
-      'navigation-bar',
-      'page-meta',
+      "page",
+      "cover-image",
+      "cover-view",
+      "match-media",
+      "movable-area",
+      "movable-view",
+      "scroll-view",
+      "swiper",
+      "swiper-item",
+      "view",
+      "icon",
+      "progress",
+      "rich-text",
+      "text",
+      "button",
+      "checkbox",
+      "checkbox-group",
+      "editor",
+      "form",
+      "input",
+      "label",
+      "picker",
+      "picker-view",
+      "picker-view-column",
+      "radio",
+      "radio-group",
+      "slider",
+      "switch",
+      "textarea",
+      "functional-page-navigator",
+      "navigator",
+      "audio",
+      "camera",
+      "image",
+      "live-player",
+      "live-pusher",
+      "video",
+      "voip-room",
+      "map",
+      "canvas",
+      "ad",
+      "ad-custom",
+      "official-account",
+      "open-data",
+      "web-view",
+      "navigation-bar",
+      "page-meta",
     ],
   ],
 ];

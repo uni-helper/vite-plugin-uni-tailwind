@@ -1,14 +1,19 @@
 {
-  "extends": "@tsconfig/node20",
   "compilerOptions": {
     "baseUrl": ".",
-    "lib": ["ESNext"],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "target": "ESNext",
     "resolveJsonModule": true,
+    "paths": {
+      "core": ["./packages/core/src/index.ts"]
+    },
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
     "types": ["@dcloudio/types", "node"]
   },
-  "include": ["**/*.js", "**/*.cjs", "**/*.mjs", "**/*.ts", "**/*.cts", "**/*.mts"],
-  "exclude": ["**/node_modules", "**/dist", "playground"]
+  "exclude": ["**/node_modules/**", "**/dist/**", "**/playground/**"]
 }

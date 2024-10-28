@@ -1,6 +1,6 @@
-import type { OutputChunk } from 'rollup';
-import { defaultOptions } from '../options';
-import { babelGetVendorExportMap, babelTransformScript } from '../tools';
+import type { OutputChunk } from "rollup";
+import { defaultOptions } from "../options";
+import { type babelGetVendorExportMap, babelTransformScript } from "../tools";
 
 export const isScriptFile = (fileName: string) => /.+\.js$/.test(fileName);
 

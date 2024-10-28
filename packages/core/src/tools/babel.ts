@@ -1,8 +1,8 @@
-import * as babel from '@babel/core';
-import type { PluginItem } from '@babel/core';
-import type { OutputChunk } from 'rollup';
-import { replaceCharacters, replaceUnicode } from '../utils';
-import { defaultOptions } from '../options';
+import * as babel from "@babel/core";
+import type { PluginItem } from "@babel/core";
+import type { OutputChunk } from "rollup";
+import { defaultOptions } from "../options";
+import { replaceCharacters, replaceUnicode } from "../utils";
 
 type Babel = typeof babel;
 
@@ -17,20 +17,20 @@ export const babelTransformClass = (
   // 没有 {{}}，直接替换
   if (results.length === 0) {
     return replaceCharacters(
-      replaceUnicode(source, 'template'),
-      'template',
+      replaceUnicode(source, "template"),
+      "template",
       options,
     );
   }
   // 有 {{}}
   // 先替换 {{}} 中内容为 ReplaceMarker
-  const ReplaceMarker = '__VITE_PLUGIN_UNI_APP_TAILWIND__';
+  const ReplaceMarker = "__VITE_PLUGIN_UNI_APP_TAILWIND__";
   let newSource = source.replaceAll(ScriptsRegExp, `{{${ReplaceMarker}}}`);
   // 遍历处理字符
   for (const result of results) {
     // 获取 {{}} 中内容
     const input = result.input ?? result[0];
-    const inside = input.replaceAll(ScriptsRegExp, '$2');
+    const inside = input.replaceAll(ScriptsRegExp, "$2");
     // 处理字符
     const transformed = babel.transformSync(inside, {
       generatorOpts: {
@@ -44,8 +44,8 @@ export const babelTransformClass = (
             StringLiteral(path) {
               const raw = path.node.value;
               const replaced = replaceCharacters(
-                replaceUnicode(raw, 'template'),
-                'template',
+                replaceUnicode(raw, "template"),
+                "template",
                 options,
               );
               if (replaced !== raw)
@@ -59,7 +59,7 @@ export const babelTransformClass = (
     if (transformed?.code)
       newSource = newSource.replace(
         ReplaceMarker,
-        transformed.code.replace(/;$/, ''),
+        transformed.code.replace(/;$/, ""),
       );
   }
   return newSource;
@@ -68,20 +68,20 @@ export const babelTransformClass = (
 export const babelGetVendorRenderPropsExportName = (
   vendorAsset: OutputChunk,
 ) => {
-  let name = '';
+  let name = "";
   const { modules } = vendorAsset;
   for (const [, m] of Object.entries(modules)) {
     const { code } = m;
-    if (!code || !code.includes('renderProps')) continue;
+    if (!code || !code.includes("renderProps")) continue;
     const ast = babel.parseSync(code);
     if (!ast) continue;
     babel.traverse(ast, {
       CallExpression: (path) => {
-        if (path.node.callee.type !== 'Identifier') return;
-        if (path.node.callee.name !== 'renderProps') return;
+        if (path.node.callee.type !== "Identifier") return;
+        if (path.node.callee.name !== "renderProps") return;
         if (!path.parentPath.isArrowFunctionExpression()) return;
         if (!path.parentPath.parentPath.isVariableDeclarator()) return;
-        if (path.parentPath.parentPath.node.id.type !== 'Identifier') return;
+        if (path.parentPath.parentPath.node.id.type !== "Identifier") return;
         name = path.parentPath.parentPath.node.id.name;
         path.skip();
       },
@@ -96,15 +96,15 @@ export const babelGetVendorExportMap = (vendorAsset: OutputChunk) => ({
 });
 
 export const babelGetVendorName = (source: string) => {
-  let name = '';
+  let name = "";
   const ast = babel.parseSync(source);
-  if (!ast) return '';
+  if (!ast) return "";
   babel.traverse(ast, {
     StringLiteral: (path) => {
-      if (!path.node.value.endsWith('vendor.js')) return;
+      if (!path.node.value.endsWith("vendor.js")) return;
       if (!path.parentPath.isCallExpression()) return;
       if (!path.parentPath.parentPath.isVariableDeclarator()) return;
-      if (path.parentPath.parentPath.node.id.type !== 'Identifier') return;
+      if (path.parentPath.parentPath.node.id.type !== "Identifier") return;
       name = path.parentPath.parentPath.node.id.name;
       path.stop();
     },
@@ -139,12 +139,12 @@ export const babelTransformScript = (
             if (path.parentPath.parentPath.parentPath.isCallExpression()) {
               if (
                 path.parentPath.parentPath.parentPath.node.callee.type !==
-                'MemberExpression'
+                "MemberExpression"
               )
                 return;
               if (
                 path.parentPath.parentPath.parentPath.node.callee.object
-                  .type !== 'Identifier'
+                  .type !== "Identifier"
               )
                 return;
               if (
@@ -154,7 +154,7 @@ export const babelTransformScript = (
                 return;
               if (
                 path.parentPath.parentPath.parentPath.node.callee.property
-                  .type !== 'Identifier'
+                  .type !== "Identifier"
               )
                 return;
               if (
@@ -162,7 +162,7 @@ export const babelTransformScript = (
                   .name !== vendorExportMap.renderProps
               )
                 return;
-              if (path.parentPath.node.key.type !== 'StringLiteral') return;
+              if (path.parentPath.node.key.type !== "StringLiteral") return;
               if (
                 !options.shouldTransformAttribute(
                   path.parentPath.node.key.value,
@@ -172,7 +172,7 @@ export const babelTransformScript = (
             } else {
               if (
                 path.parentPath.parentPath.parentPath.node.key.type !==
-                'StringLiteral'
+                "StringLiteral"
               )
                 return;
               if (
@@ -185,12 +185,12 @@ export const babelTransformScript = (
                 return;
               if (
                 path.parentPath.parentPath.parentPath.parentPath.parentPath.node
-                  .callee.type !== 'MemberExpression'
+                  .callee.type !== "MemberExpression"
               )
                 return;
               if (
                 path.parentPath.parentPath.parentPath.parentPath.parentPath.node
-                  .callee.object.type !== 'Identifier'
+                  .callee.object.type !== "Identifier"
               )
                 return;
               if (
@@ -200,7 +200,7 @@ export const babelTransformScript = (
                 return;
               if (
                 path.parentPath.parentPath.parentPath.parentPath.parentPath.node
-                  .callee.property.type !== 'Identifier'
+                  .callee.property.type !== "Identifier"
               )
                 return;
               if (
@@ -217,8 +217,8 @@ export const babelTransformScript = (
             }
             const raw = path.node.value;
             const replaced = replaceCharacters(
-              replaceUnicode(raw, 'template'),
-              'template',
+              replaceUnicode(raw, "template"),
+              "template",
               options,
             );
             if (replaced !== raw)
