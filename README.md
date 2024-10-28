@@ -1,10 +1,18 @@
 # @uni-helper/vite-plugin-uni-tailwind
 
-[![License](https://img.shields.io/github/license/uni-helper/vite-plugin-uni-tailwind)](https://github.com/uni-helper/vite-plugin-uni-tailwind/blob/main/LICENSE)
+<div style="display: flex; justify-content: center; align-items: center; gap: 8px;">
+  <a href="https://github.com/uni-helper/vite-plugin-uni-tailwind/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/uni-helper/vite-plugin-uni-tailwind?style=for-the-badge" alt="License" />
+  </a>
+  <a href="https://www.npmjs.com/package/@uni-helper/vite-plugin-uni-tailwind">
+    <img src="https://img.shields.io/npm/v/%40uni-helper%2Fvite-plugin-uni-tailwind?style=for-the-badge" alt="npm" />
+  </a>
+  <a href="https://www.npmjs.com/package/@uni-helper/vite-plugin-uni-tailwind">
+    <img src="https://img.shields.io/npm/dm/%40uni-helper%2Fvite-plugin-uni-tailwind?style=for-the-badge" alt="npm downloads" />
+  </a>
+</div>
 
-[![npm](https://img.shields.io/npm/v/@uni-helper/vite-plugin-uni-tailwind)](https://www.npmjs.com/package/@uni-helper/vite-plugin-uni-tailwind)
-
-支持在 `uni-app` 中使用 `TailwindCSS@3` 原有语法开发小程序。支持 vite v2，v3 和 v4，要求 `node >= 14.18`。
+支持在 uni-app 中使用 TailwindCSS v3 原有语法开发小程序。支持 Vite v2 ~ v5，要求 `node>=14.18`。
 
 ## 使用
 
@@ -31,6 +39,8 @@ import uniTailwind from '@uni-helper/vite-plugin-uni-tailwind';
 // https://vitejs.dev/config/
 export default defineConfig({
   css: {
+    // 只能在 Vite 配置文件内处理 postcss 配置
+    // https://github.com/dcloudio/uni-app/issues/3367
     postcss: {
       plugins: [
         nested(),
@@ -76,7 +86,7 @@ export default defineConfig({
 ### `shouldTransformScript`
 
 - 类型：`(fileName: string) => boolean`
-- 默认值：`转换 pages、components、layouts 开头的脚本文件`
+- 默认值：`转换路径以 pages、components、layouts 开头的脚本文件`
 
 是否转换某个脚本文件。
 
@@ -227,59 +237,58 @@ export default defineConfig({
 
 ## FAQ
 
-### 可以支持其它原子化 CSS 库吗？
+### 可以支持 WindiCSS 吗？
 
-#### WindiCSS
+**请注意：请不要在新项目中使用 WindiCSS！详见 [Windi CSS is Sunsetting](https://windicss.org/posts/sunsetting.html)。**
 
-**请注意：请不要在新项目中使用 `WindiCSS`！详见 [Windi CSS is Sunsetting](https://windicss.org/posts/sunsetting.html)。**
+如果你没有使用 WindiCSS 内的高级功能（如 [Attributify Mode](https://windicss.org/features/attributify.html)），这个库可以正常工作。
 
-如果你没有使用 `WindiCSS` 内的高级功能（如 [Attributify Mode](https://windicss.org/features/attributify.html)），这个库可以正常工作。
+### 可以支持 UnoCSS 吗？
 
-#### UnoCSS
+**建议使用 [unocss-applet](https://github.com/unocss-applet/unocss-applet) 或 [unocss-preset-weapp](https://github.com/MellowCo/unocss-preset-weapp) 以获取更好的支持。**
 
-**建议使用 [unocss-applet](https://github.com/unocss-applet/unocss-applet) 以获取更好的支持。**
-
-如果你没有使用 `UnoCSS` 内的高级功能（如 [Attributify Mode](https://unocss.dev/presets/attributify)、[Tagify Mode](https://unocss.dev/presets/tagify)），这个库可以正常工作。
-
-[`UnoCSS` 和该插件结合使用的项目参考](https://github.com/MillCloud/presets/tree/main/uni-app)
+如果你没有使用 UnoCSS 内的高级功能（如 [Attributify Mode](https://unocss.dev/presets/attributify)、[Tagify Mode](https://unocss.dev/presets/tagify)），这个库可以正常工作。
 
 ### 可以支持 rpx 转换吗？
 
-![rpx](./rpx.png)
+引自 [微信小程序文档](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxss.html#%E5%B0%BA%E5%AF%B8%E5%8D%95%E4%BD%8D)：
 
-简而言之，`rpx` 是一个跟屏幕宽度挂钩的响应式单位，不应该也不需要把所有用到 `px` 或者 `rem` 的地方换成 `rpx`。
+> rpx（responsive pixel）: 可以根据屏幕宽度进行自适应。规定屏幕宽为750rpx。如在 iPhone6 上，屏幕宽度为375px，共有750个物理像素，则750rpx = 375px = 750物理像素，1rpx = 0.5px = 1物理像素。
 
-什么时候必须要用 `rpx`？我个人的经验是 `aside` 的宽度需要随屏幕宽度变化、`main` 根据 `aside` 宽度变化时，才必须用到 `rpx` + `flexbox` 的组合，否则用 `flexbox` 就已经足够了。
+简而言之，rpx 是一个跟屏幕宽度挂钩的响应式单位，不应该也不需要把所有用到 px 或者 rem 的地方换成 rpx。
 
-所以，这个插件不支持 `rpx` 转换。你可以直接 [使用任意值](https://tailwindcss.com/docs/adding-custom-styles#using-arbitrary-values)，如 `.w-[750rpx]`、`.w-[200rpx]`，我相信可以满足绝大部分的需求。
+什么时候必须要用 rpx？我个人的经验是侧边栏的宽度需要随屏幕宽度变化、页面主体根据侧边栏宽度变化时，才必须用到 rpx + flexbox 的组合，否则用 flexbox 就已经足够了。
+
+所以，这个插件不支持 rpx 转换。你可以直接 [使用任意值](https://tailwindcss.com/docs/adding-custom-styles#using-arbitrary-values)，如 `.w-[750rpx]`、`.w-[200rpx]`，我相信可以满足绝大部分的需求。
 
 如果你悲伤地发现这没法满足你的需求，可能这个插件不适合你，请看看以下几个项目是否满足你的需求。
 
 - [tailwind-extensions](https://www.npmjs.com/package/tailwind-extensions)
 - [mini-program-tailwind](https://github.com/dcasia/mini-program-tailwind)
+- [weapp-tailwindcss](https://github.com/sonofmagic/weapp-tailwindcss)
 - [unocss](https://unocss.dev)
 - [unocss-applet](https://github.com/unocss-applet/unocss-applet)
 - [unocss-preset-weapp](https://github.com/MellowCo/unocss-preset-weapp)
 
 ### 这个插件的原理是什么？
 
-`uni-app` + `TailwindCSS` 不能编译出小程序能正常运行的代码的错误原因有以下几种：
+uni-app + TailwindCSS 不能编译出小程序能正常运行的代码的错误原因有以下几种：
 
 - 样式文件中含有不支持的字符，如 `()[]$#!/.:,%'` 等；
 - 样式文件中含有不支持的元素，如 `html`, `body`、`img`、`a`、`*` 等；
 - 自带组件传参，模板文件中含有不支持的字符，如 `()[]$#!/.:,%'` 等；
 - 自定义组件传参，脚本文件中含有不支持的字符，如 `()[]$#!/.:,%'` 等，导致参数渲染不正常。
 
-那么，我们只需要做到以下几点就可以让 `TailwindCSS` 跑在小程序中，而不需要调整 `TailwindCSS` 的语法来增加开发时的心智负担：
+那么，我们只需要做到以下几点就可以让 TailwindCSS 跑在小程序中，而不需要调整 TailwindCSS 的语法来增加开发时的心智负担：
 
-- 使用 `postcss` 改写样式文件里面的 `selector`，包括字符和元素；
-- 使用 `babel` 改写模板文件里面的 `class`，只包括字符，这是为了和样式文件里面的 `selector` 相匹配；
-- 使用 `babel` 改写脚本文件里面的 `class`，这也是为了和样式文件里面的 `selector` 相匹配。
+- 使用 PostCSS 改写样式文件里面的 `selector`，包括字符和元素；
+- 使用 Babel 改写模板文件里面的 `class`，只包括字符，这是为了和样式文件里面的 `selector` 相匹配；
+- 使用 Babel 改写脚本文件里面的 `class`，这也是为了和样式文件里面的 `selector` 相匹配。
 
 但请注意，这个插件不是万能的。
 
 - 插件无法突破小程序的限制，比如 `bg-[url(xxxx)]` 经过插件处理后可以正常使用，但是小程序平台不支持使用 `background-image`，此时仍然无法正常渲染出图片。
-- 插件不支持特别复杂的情况，如果自定义组件传参过于复杂，仍然可能绕过插件处理。如果你发现这种情况，欢迎提交 Issue 或 PR 协助改进该插件 🙏
+- 插件不支持特别复杂的情况，如果自定义组件传参过于复杂，仍然可能绕过插件处理。如果你发现这种情况，欢迎提交 Issue 或 PR 协助改进该插件，非常感谢！🙏
 
 ## 资源
 
@@ -299,3 +308,19 @@ export default defineConfig({
 - [TailwindCSS](https://tailwindcss.com/)
 - [WindiCSS](https://windicss.org/)
 - [UnoCSS](https://github.com/unocss/unocss)
+
+## 贡献者们
+
+该项目由 [ModyQyW](https://github.com/ModyQyW) 创建。
+
+感谢 [所有贡献者](https://github.com/uni-helper/vite-plugin-uni-tailwind/graphs/contributors) 的付出！
+
+## 赞助
+
+如果这个包对你有所帮助，请考虑 [赞助](https://github.com/ModyQyW/sponsors) 支持，这将有利于项目持续开发和维护。
+
+<p align="center">
+  <a href="https://cdn.jsdelivr.net/gh/ModyQyW/sponsors/sponsorkit/sponsors.svg">
+    <img src="https://cdn.jsdelivr.net/gh/ModyQyW/sponsors/sponsorkit/sponsors.svg"/>
+  </a>
+</p>
