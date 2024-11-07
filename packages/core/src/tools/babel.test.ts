@@ -23,7 +23,7 @@ describe("babel", () => {
     expect(babelTransformClass("w-[10%]")).toBe("w--10-p--");
     expect(
       babelTransformClass(`{{['w-[10%]','bg-[#fff]',virtualHostClass]}}`),
-    ).toBe(`{{["w--10-p--","bg---h-fff-",virtualHostClass]}}`);
+    ).toBe(`{{['w--10-p--','bg---h-fff-',virtualHostClass]}}`);
     expect(babelTransformClass("*:rounded-full")).toBe("-w-_rounded-full");
   });
 

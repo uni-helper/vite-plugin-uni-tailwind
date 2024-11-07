@@ -68,7 +68,7 @@ describe("template", () => {
         `<view class="{{['w-[10%]','bg-[#fff]',virtualHostClass]}}"></view>`,
       ),
     ).toBe(
-      `<view class="{{[\\"w--10-p--\\",\\"bg---h-fff-\\",virtualHostClass]}}"></view>`,
+      `<view class="{{['w--10-p--','bg---h-fff-',virtualHostClass]}}"></view>`,
     );
   });
 

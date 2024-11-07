@@ -59,7 +59,7 @@ export const babelTransformClass = (
     if (transformed?.code)
       newSource = newSource.replace(
         ReplaceMarker,
-        transformed.code.replace(/;$/, ""),
+        transformed.code.replace(/;$/, "").replace(/"/g, "'"),
       );
   }
   return newSource;
