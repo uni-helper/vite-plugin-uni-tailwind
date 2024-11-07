@@ -1,5 +1,5 @@
 {
-  "name": "uni-preset-vue",
+  "name": "playground",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -54,14 +54,14 @@
     "vue-i18n": "^9.14.1"
   },
   "devDependencies": {
-    "@dcloudio/types": "^3.4.12",
+    "@dcloudio/types": "^3.4.14",
     "@dcloudio/uni-automator": "3.0.0-4020920240930001",
     "@dcloudio/uni-cli-shared": "3.0.0-4020920240930001",
     "@dcloudio/uni-stacktracey": "3.0.0-4020920240930001",
     "@dcloudio/vite-plugin-uni": "3.0.0-4020920240930001",
     "@uni-helper/vite-plugin-uni-tailwind": "workspace:*",
     "postcss": "^8.4.47",
-    "postcss-preset-env": "^10.0.8",
+    "postcss-preset-env": "^10.0.9",
     "tailwind-extensions": "^0.22.1",
     "tailwindcss": "^3.4.14",
     "typescript": "~5.5.4",
