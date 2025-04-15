@@ -1,5 +1,7 @@
 # @uni-helper/vite-plugin-uni-tailwind
 
+**今日起，我们将正式废弃 @uni-helper/vite-plugin-uni-tailwind，并建议现有应用迁移到其它类似工具。详情请阅读 [废弃 @uni-helper/vite-plugin-uni-tailwind](./deprecated.md)。**
+
 <div style="display: flex; justify-content: center; align-items: center; gap: 8px;">
   <a href="https://github.com/uni-helper/vite-plugin-uni-tailwind/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/uni-helper/vite-plugin-uni-tailwind?style=for-the-badge" alt="License" />
@@ -29,7 +31,7 @@ npm install @uni-helper/vite-plugin-uni-tailwind -D
 ```typescript
 import { defineConfig } from 'vite';
 // @ts-ignore
-import nested from 'tailwindcss/nesting';
+import tailwindcssNesting from 'tailwindcss/nesting';
 import tailwindcss from 'tailwindcss';
 import tailwindcssConfig from './tailwind.config.ts'; // 注意匹配实际文件
 import postcssPresetEnv from 'postcss-preset-env';
@@ -43,13 +45,21 @@ export default defineConfig({
     // https://github.com/dcloudio/uni-app/issues/3367
     postcss: {
       plugins: [
-        nested(),
+        tailwindcssNesting(),
         tailwindcss({
           config: tailwindcssConfig,
         }),
         postcssPresetEnv({
           stage: 3,
-          features: { 'nesting-rules': false },
+          features: {
+            // 避免处理冲突
+            'nesting-rules': false,
+            // 强制处理全局和局部 CSS Variables，无视浏览器兼容性
+            'custom-properties': true,
+            // 强制处理 @layer 规则，无视浏览器兼容性
+            'cascade-layers': true,
+            // 更多用法见 postcss-preset-env 文档
+          },
         }),
       ],
     },
